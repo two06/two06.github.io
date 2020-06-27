@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- layout.ejs-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="two06">
+    <meta name="keyword" content="">
+    <link rel="canonical" href="https://blog.two06.info/two06.github.io/Software-Development-Principals-for-Offensive-Developers-Part-2-Adapters/">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Another Infosec Blog" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <title>
+        
+        Software Development Principals for Offensive Developers - Part 2 (Adapters)｜two06 Infosec Blog
+        
+    </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    
+<link rel="stylesheet" href="/two06.github.io/css/main.css">
+
+
+    
+      <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+      
+<link rel="stylesheet" href="/two06.github.io/css/highlight.css">
+
+    
+
+    
+
+
+    
+
+    
+
+    
+
+
+    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    
+
+
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- user customization -->
+    
+<link rel="stylesheet" href="/two06.github.io/css/arsnippet.css">
+
+    
+<script src="/two06.github.io/js/arsnippet.css.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<style>
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<header>
+  <nav class="navbar navbar-default header-navbar" id="nav-top" data-ispost = "true" data-istags="false" data-ishome = "false" >
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="false"  data-target="#website_navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand animated pulse">
+          <a class="brand-logo" href="/two06.github.io/">
+            Another Infosec Blog
+          </a>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="website_navbar">
+          <ul class="nav navbar-nav navbar-right">
+              
+                <li>
+                  <a href="/two06.github.io/">home</a>
+                </li>
+              
+                <li>
+                  <a href="/two06.github.io/Other-Research/">Other Research</a>
+                </li>
+              
+                <li>
+                  <a href="/two06.github.io/archives/">archives</a>
+                </li>
+              
+                <li>
+                  <a href="/two06.github.io/atom.xml">RSS</a>
+                </li>
+              
+          </ul>
+      </div>
+  </nav>
+
+
+  
+    <style>
+       .intro-header {
+          background-image: url('');
+      }
+    </style>
+
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                    <div class="site-heading">
+                        <h1>Software Development Principals for Offensive Developers - Part 2 (Adapters)</h1>
+                        
+                        
+                          <span class="meta">
+                               <span class="meta-item">Author: two06</span>
+                               <span class="meta-item">Date: Feb 26, 2020</span>
+                               
+                          </span>
+                          <!--<div class="tags text-center">
+                              Categories: 
+                          </div>-->
+                          <div class="tags text-center">
+                              Tags: 
+                              <a class="tag" href="/two06.github.io/tags/#Infosec"
+                                 title="Infosec">Infosec</a>
+                              
+                              <a class="tag" href="/two06.github.io/tags/#Solid"
+                                 title="Solid">Solid</a>
+                              
+                              <a class="tag" href="/two06.github.io/tags/#Software Development"
+                                 title="Software Development">Software Development</a>
+                              
+                              <a class="tag" href="/two06.github.io/tags/#Development"
+                                 title="Development">Development</a>
+                              
+                              <a class="tag" href="/two06.github.io/tags/#Design Patterns"
+                                 title="Design Patterns">Design Patterns</a>
+                              
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</header>
+
+
+<!-- Main Content -->
+<!-- post.ejs -->
+<article>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-1 col-sm-9">
+          
+          
+          <p>In part 1 of this series, we introduced the concept of interfaces and single object responsibility by starting to design a rudimentary implant. In this post, we’ll start to introduce design patterns and look at how we can re-use code across projects.</p>
+<p>Since our last post, I’ve made some changes to our implant code, based off the principals we introduced. These have mostly been adding layers of abstraction and setting things up for the next set of posts, but it’s worth taking the time to understand the changes and why I’ve made certain decisions about the code structure.</p>
+<p>The following diagram should give a rough idea of the changes:</p>
+<p><img src="uml1.png" alt=""></p>
+<p>Our implant now gets “taskings” from a C2 provider. Those taskings reference a “capability”, which is a layer of abstraction over “something the implant can do”. Our implant code now looks like this:</p>
+<p><img src="code1.png" alt=""></p>
+<p>This code is setting up a C2 channel via a class which implements the “IC2Provider” interface. It then looks through available taskings, figures out what capability the tasking is invoking, executes it then goes to sleep before picking up the next tasking. I’ve also changed the layout of the code, which now looks like this:</p>
+<p><img src="code2.png" alt=""></p>
+<p>The C2 project is just a layer of abstraction over C2 providers. This allows us to keep the actual providers separate, meaning we wont be including code for a provider we aren’t using when we build our project. The scenario here is we may have a suit of providers to choose from, which we can just drop into new projects or switch out as needed, as they all implement a common interface. The capabilities project contains an enum of supported capabilities and an interface. This is another layer of abstraction which means we can pick and choose what capabilities we want to include.</p>
+<p>Now that we understand the code, lets take a look at implementing a capability. Our implant so far supports lateral movement via WMI, executing <a href="https://github.com/GhostPack/Seatbelt" target="_blank" rel="noopener">Seatbelt</a> and doing something with <a href="https://www.harmj0y.net/blog/redteaming/operational-guidance-for-offensive-user-dpapi-abuse/" target="_blank" rel="noopener">DPAPI</a>. I’m going to use <a href="https://github.com/GhostPack/SharpDPAPI" target="_blank" rel="noopener">SharpDPAPI</a> to demonstrate how we can use existing code within our projects. In this example, we are using third-party code, but this could equally apply to code we wrote for another project.</p>
+<p>In our code, we have defined the interface that a capability must implement. Using this interface will allow us to build effective unit tests, and isolates our implant code from changes made to the capability library. SharpDPAPI does not implement our interface. In theory, we could just implement our own version, which would probably involve a lot of copy-paste into our own classes. While this would allow us to implement whatever interfaces we want, it also means we become responsible for that code. Any bug fixes applied up-stream would have to be manually ported. We could introduce new bugs during development and we’d have to write tests to cover the new code. This strategy also won’t help us if we ever want to use a closed-source library. Another option would be to refactor our existing code, perhaps to hard-code calling SharpDPAPI directly. Hopefully by now you understand why this would be a bad idea.</p>
+<p>Wanting to use existing code in a new project is a pretty common problem. It’s also not the only common problem that developers encounter. Developers encounter the same set of problems so often that standard ways to solve them have been devised, known as “design patterns”. A design pattern is a general, reusable solution to a common problem. They aren’t libraries which can be used, but rather fundamental ideas which must be implemented. The patterns are language-agnostic, although books with language-specific references are common. <a href="https://www.amazon.co.uk/gp/product/0201633612?pf_rd_p=f20e70b1-67f9-48d1-8c78-ba616030b420&pf_rd_r=2JZ34THHWYEMZ6H7HZRR" target="_blank" rel="noopener">“Design patterns: elements of reusable object-oriented software”</a> (non-affiliate link) is one of the most commonly used books on the subject, but there are also plenty of resources available online.</p>
+<p>To solve our problem, we can use the adapter pattern. This pattern allows us to take code which is incompatible with our existing interface and “adapt” it to fit our needs. This is commonly used when we have code in an existing project which solves a problem for us, but isn’t usable in the current project because the interfaces used don’t match. We can also use it to allow us to include third-party code, which is what we’ll do in this example. The adapter pattern takes an adaptee (the class which has the functionality we want to use) and converts its interface to match that of ITarget (the interface used by our code). In our example, we don’t have an interface to translate from, but the principal is the same.</p>
+<p>Let’s bring SharpDPAPI into our project and start implementing our adapter. We can download the source from GitHub, extract it and then add a reference to an existing project within our solution.</p>
+<p><img src="code3.png" alt=""></p>
+<p>SharpDPAPI is a console application, designed to be run as a standalone application. We want to make use of some of its code, but not run the “Main” program method.</p>
+<p>Looking at the SharpDPAPI code, we can see it almost immediately calls into some other methods, where most of the processing is done.</p>
+<p><img src="code4.png" alt=""></p>
+<p>We can copy this code into our adapter, side-stepping the need to run SharpDPAPI as a console application. Within our Capabilities project, we can add a new class within the “Adapters” namespace, which implements the ICapability interface. This class must contain a public “Execute” method, which accepts an IEnumerable<string> parameter containing our command arguments. We need to parse those arguments and translate them to the format SharpDPAPI is expecting. Once that’s done, we can call the CommandCollection() method from the above SharpDPAPI code directly.</p>
+<p>With a little bit of fiddling, we end up with something like this:</p>
+<p><img src="code5.png" alt=""></p>
+<p>We take the first argument and assume that’s going to be the command name, strip that from the list of args and then call the SharpDPAPI code. We set up a Result object as our return value and use the success indicator returned by SharpDPAPI to populate its success value.</p>
+<p>SharpDPAPI is a console application. It outputs data to the console, which we don’t have access to. For this post, I’m going to ignore this problem as we can’t actually run our implant yet (you may have noticed the C2 code is missing). This presents a problem when we want to check our code is working. We can’t debug the main implant program, because half the functionality isn’t finished yet. We also don’t want to “hope for the best”, as we’ll likely end up with a horrifying number of errors to resolve at the end of the project. Enter unit testing.</p>
+<p>We’ve covered unit testing briefly in previous posts. For this post, all we really want to do is have a way to check our adapter code is running as we expect. We can add a new unit test project for the Capabilities class, which I’m going to call “Capabilities_UnitTests” (inventive naming, right?). Within this project, we can add a folder to contain all the adapter related tests, then a test class for our SharpDPAPI tests.</p>
+<p><img src="code6.png" alt=""></p>
+<p>Within this class, we can add a simple “happy path” test, which just calls the adapter code with a single, working argument.</p>
+<p><img src="code7.png" alt=""></p>
+<p>I’m using the Arrange, Act, Assert approach to writing my tests, where we set up the test, perform the action to be tested, then check that everything happened as expected. This example is quit straight-forward, as we are simply checking the result was true (successful).</p>
+<p>Unit tests have access to the console output, so after we run the test, we should be able to see what was returned from SharpDPAPI.</p>
+<p><img src="testresult.png" alt=""></p>
+<p>Our test failed, as we got a “failed” response back where we were expecting a successful response. Looking at the additional output, we can see that SharpDPAPI did run as expected, but failed due to an error with our master key.</p>
+<p><img src="testdetails.png" alt=""></p>
+<p>While we need to flesh out the test coverage for this component, that’s a job for another time. Before we call it a day with this post, lets update our implant to use our new code.</p>
+<p><img src="code8.png" alt=""></p>
+<p>The change is quite simple. Hopefully you can see how implementing the ICapability interface is beneficial here.</p>
+<p>In this post we’ve introduced the concept of design patterns and seen how the adapter pattern can allow us to re-use existing code in our projects. We’ll look at some other patterns and introduce more complicated test strategies in later posts in this series.</p>
+<p>Finally, I hope it goes without saying that this is just a demo app, you probably don’t want to build an implant with C# and, if you did, embedding parts of GhostPack into it would almost certainly be a bad idea.</p>
+
+          
+          <hr>
+          <ul class="pager">
+              
+              
+              <li class="next">
+                  <a href="/two06.github.io/Software-Development-Principals-for-Offensive-Developers-Part-1-Fundamentals/" data-toggle="tooltip" data-placement="top"
+                     title="Software Development Principals for Offensive Developers - Part 1 (Fundamentals)">Next Post&rarr;</a>
+              </li>
+              
+          </ul>
+        
+  <br>
+  
+
+  
+  </div>
+
+
+        
+
+      </div>
+  </div>
+</article>
+
+<!-- Footer -->
+<!-- footer.ejs -->
+<footer>
+    <div class="text-center">
+      <ul class="list-inline">
+          
+              <li>
+                  <a href="/two06.github.io/atom.xml" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+          
+              <li>
+                  <a target="_blank" href="https://twitter.com/two06">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+          
+
+          
+
+          
+
+          
+              <li>
+                  <a target="_blank"  href="https://github.com/two06">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+
+      </ul>
+     <div class="text-muted copyright">
+            &copy;
+            
+            2019 - 2020
+            
+            
+              <i class="fa fa-user"></i>
+            
+            two06
+        <br>
+          
+              Powered by <a target="_blank" href="https://hexo.io">Hexo</a>
+          
+          
+          
+          
+      </div>
+    </div>
+</footer>
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/two06.github.io/js/main.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+</body>
+
+</html>

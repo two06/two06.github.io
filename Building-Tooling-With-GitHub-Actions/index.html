@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- layout.ejs-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="two06">
+    <meta name="keyword" content="">
+    <link rel="canonical" href="https://blog.two06.info/two06.github.io/Building-Tooling-With-GitHub-Actions/">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Another Infosec Blog" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <title>
+        
+        Building Tooling With GitHub Actions｜two06 Infosec Blog
+        
+    </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    
+<link rel="stylesheet" href="/two06.github.io/css/main.css">
+
+
+    
+      <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+      
+<link rel="stylesheet" href="/two06.github.io/css/highlight.css">
+
+    
+
+    
+
+
+    
+
+    
+
+    
+
+
+    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    
+
+
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- user customization -->
+    
+<link rel="stylesheet" href="/two06.github.io/css/arsnippet.css">
+
+    
+<script src="/two06.github.io/js/arsnippet.css.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<style>
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<header>
+  <nav class="navbar navbar-default header-navbar" id="nav-top" data-ispost = "true" data-istags="false" data-ishome = "false" >
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="false"  data-target="#website_navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand animated pulse">
+          <a class="brand-logo" href="/two06.github.io/">
+            Another Infosec Blog
+          </a>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="website_navbar">
+          <ul class="nav navbar-nav navbar-right">
+              
+                <li>
+                  <a href="/two06.github.io/">home</a>
+                </li>
+              
+                <li>
+                  <a href="/two06.github.io/Other-Research/">Other Research</a>
+                </li>
+              
+                <li>
+                  <a href="/two06.github.io/archives/">archives</a>
+                </li>
+              
+                <li>
+                  <a href="/two06.github.io/atom.xml">RSS</a>
+                </li>
+              
+          </ul>
+      </div>
+  </nav>
+
+
+  
+    <style>
+       .intro-header {
+          background-image: url('');
+      }
+    </style>
+
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                    <div class="site-heading">
+                        <h1>Building Tooling With GitHub Actions</h1>
+                        
+                        
+                          <span class="meta">
+                               <span class="meta-item">Author: two06</span>
+                               <span class="meta-item">Date: Nov 6, 2019</span>
+                               
+                          </span>
+                          <!--<div class="tags text-center">
+                              Categories: 
+                          </div>-->
+                          <div class="tags text-center">
+                              Tags: 
+                              <a class="tag" href="/two06.github.io/tags/#DevOps"
+                                 title="DevOps">DevOps</a>
+                              
+                              <a class="tag" href="/two06.github.io/tags/#Github Actions"
+                                 title="Github Actions">Github Actions</a>
+                              
+                              <a class="tag" href="/two06.github.io/tags/#Github"
+                                 title="Github">Github</a>
+                              
+                              <a class="tag" href="/two06.github.io/tags/#Red Team"
+                                 title="Red Team">Red Team</a>
+                              
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</header>
+
+
+<!-- Main Content -->
+<!-- post.ejs -->
+<article>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-1 col-sm-9">
+          
+          
+          <p>Earlier this year, <a href="https://twitter.com/_xpn_" target="_blank" rel="noopener">XPN</a> posted a <a href="https://blog.xpnsec.com/building-modifying-packing-devops/" target="_blank" rel="noopener">blog</a> about using Azure DevOps. With the up-coming release of GitHub <a href="https://github.com/features/actions" target="_blank" rel="noopener">Actions</a>, I thought now would be a good time to look at how to implement some of this functionality using Actions.</p>
+<p>Following XPN’s lead (and definitely not because I wrote a chunk of this post before realizing…), we will use <a href="https://github.com/GhostPack/Seatbelt" target="_blank" rel="noopener">Seatbelt</a>, part of the GostPack suit of tools, for this post.</p>
+<p>First off, to protect our build scripts, we want to create a private clone of the Seatbelt repo. This isn’t as easy as it should be — you can’t mark a forked repo as private in GitHub. Instead, we need to create a clone of the repo, then push it to a new, private repo under our GitHub account.</p>
+<p>Following the steps outlined <a href="https://help.github.com/en/github/creating-cloning-and-archiving-repositories/duplicating-a-repository" target="_blank" rel="noopener">here</a>, we first create a bare clone of the repo:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> --bare https://github.com/GhostPack/Seatbelt.git</span><br></pre></td></tr></table></figure>
+
+<p>We can then push this to a new, private repo (this has to be set up before hand).</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> Seatbelt.git</span><br><span class="line">$ git push --mirror https://github.com/two06/Seatbelt-Build.git</span><br></pre></td></tr></table></figure>
+
+<p>With our private copy of the Seatbelt project, we need to start configuring our Actions. Within the GitHub UI, select the actions tab and create a new workflow. You’ll get a window similar to this:</p>
+<p><img src="new_action.png" alt=""></p>
+<p>Seatbelt targets .NET 3.5. Actions doesn’t currently have a predefined workflow for .NET outside of the suggested .NET core workflow. Luckily, we can define our own. Select the “Set up a workflow yourself” option and you will be presented with an editor window.</p>
+<p><img src="editor1.png" alt=""></p>
+<p>We need to build our application using MSBuild, on a Windows host. We can use the “windows-latest” tag to specify that this job runs on Windows server. The “actions/checkout@v1” step will pull the current repository to the build server, ready for us to build. A bit of googling leads us to this post, which includes the run command we need to access MSBuild:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">run: |</span><br><span class="line">           cd &quot;C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\&quot;</span><br><span class="line">           .\MSBuild.exe $Env:GITHUB_WORKSPACE\pathtoyoursolutionorproject</span><br></pre></td></tr></table></figure>
+<p>This is a multi-line run command which executes MSBuild against the path to our .csproj file, within the GITHUB_WORKSPACE environment variable. This is just the path to where the checkout step drops our code. Putting this all together we end up with something like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">name: Seatbelt-Build</span><br><span class="line">on: [push]</span><br><span class="line">jobs:</span><br><span class="line"> build:</span><br><span class="line">runs-on: windows-latest</span><br><span class="line">steps:</span><br><span class="line"> — uses: actions&#x2F;checkout@v1</span><br><span class="line"> — name: Build DotNET35</span><br><span class="line"> run: |</span><br><span class="line"> cd “C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\”</span><br><span class="line"> .\MSBuild.exe $Env:GITHUB_WORKSPACE\Seatbelt\Seatbelt.csproj</span><br></pre></td></tr></table></figure>
+
+<p>Commit this change, which will also trigger the action (thanks to the on: push trigger). Clicking in to the Actions menu then on the Action name itself will display the progress of the build.</p>
+<p><img src="build1.png" alt=""></p>
+<p>If all goes well, you should see green ticks for every step. If not, the output window will contain the details of any errors under the relevant step.</p>
+<p>Ok, we successfully built a Windows binary, without needing Visual Studio. There’s just one problem… we can’t download the EXE. Actions don’t automatically make their output available via the GitHub UI, we need to add another step to achieve this using the slightly confusingly named <a href="https://github.com/actions/upload-artifact" target="_blank" rel="noopener">upload-artifact</a> and <a href="https://github.com/actions/download-artifact" target="_blank" rel="noopener">download-artifact</a> actions.</p>
+<p>Upload-artifact is used to upload files from the build server to GitHub. We need an upload-artifact action to allow us to download our compiled EXE. This action takes the path to the file we want to upload, and a name. The path we can get from the output of our MSBuild step (note that this is relative to the GITHUB_WORKSPACE directory). The name doesn’t matter, so I’ve called it “seatbelt”. Adding these change to our .yml file gives us the following:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">name: Seatbelt-Build</span><br><span class="line">on: [push]</span><br><span class="line">jobs:</span><br><span class="line"> build:</span><br><span class="line">runs-on: windows-latest</span><br><span class="line">steps:</span><br><span class="line"> — uses: actions&#x2F;checkout@v1</span><br><span class="line"> — name: Build DotNET35</span><br><span class="line"> run: |</span><br><span class="line"> cd “C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\”</span><br><span class="line"> .\MSBuild.exe $Env:GITHUB_WORKSPACE\Seatbelt\Seatbelt.csproj</span><br><span class="line"> </span><br><span class="line"> — uses: actions&#x2F;upload-artifact@master</span><br><span class="line"> with:</span><br><span class="line"> name: Seatbelt</span><br><span class="line"> path: Seatbelt\bin\Debug\Seatbelt.exe</span><br></pre></td></tr></table></figure>
+<p>Committing the changes will trigger another build. Once completed, we now have access to the artifacts menu:</p>
+<p><img src="build2.png" alt=""></p>
+<p>Downloading the artifact and running it on a Windows VM shows that our build is working correctly:</p>
+<p><img src="run1.png" alt=""></p>
+<p>We can now build our tooling using GitHub Actions, without the need for a copy of Visual Studio. Unfortunately, Seatbelt, like most offensive tooling, is flagged by Defender. We can run it in the above screenshot because I’m using a <a href="https://github.com/fireeye/commando-vm" target="_blank" rel="noopener">Commando</a> VM, which disables Defender. Let’s see if we can add some build steps to obfuscate our tooling.</p>
+<p>For this step, I’ll be using a repo containing some obfuscation code, including <a href="https://gist.github.com/xpn/002087ce54bcfd9132240f10212f6707" target="_blank" rel="noopener">this</a> example from XPNs post. As far as I can tell, Actions doesn’t currently have a way to bring in compiled artifacts from other repos. To get around this, we will need to add a new job to our .yml file to pull and compile the repo containing our obfuscation project. This job will also need to restore NuGet packages and access a private repo.</p>
+<p>As build tasks run on an ephemeral server, we have to supply credential to allow access to private repos. The build agent has no access to our GitHub account and wont be able to see the private repo if we don’t. To do this, we generate new Personal Access Token (PAT) and store it as a secret in our repository.</p>
+<p><img src="secrets.png" alt=""></p>
+<p>We can then access that token from our Action, without having to hard-code credentials. The ref key is important; without this the checkout will fail with a “reference is not a tree” error.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">uses: actions&#x2F;checkout@v1</span><br><span class="line"> with:</span><br><span class="line"> repository: two06&#x2F;Obfuscators</span><br><span class="line"> ref: refs&#x2F;heads&#x2F;master</span><br><span class="line"> token: $&#123;&#123; secrets.REPO_ACCESS_KEY &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Restoring NuGet packages can be achieved using an action available from the marketplace. The first command adds NuGet to our path, then we run the restore option against our solution file. There’s a slight gotcha here, checking out the Obfuscators creates a directory in d:\a\Seatbelt-build\ while we are working in d:\a\Seatbelt-build\Seatbelt-build. We need to pass the correct path to the restore command, or our build will fail.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- name: Setup Nuget.exe</span><br><span class="line"> uses: warrenbuckley&#x2F;Setup-Nuget@v1</span><br><span class="line">- name: Nuget Restore</span><br><span class="line"> run: nuget restore $Env:GITHUB_WORKSPACE\..\Obfuscators\Obfuscators.sln</span><br></pre></td></tr></table></figure>
+
+<p>With these additions in place, we can continue to build the project and upload the generated artifact. Uploading lets us access the artifact in a later build step. There’s another slight gotcha here, the upload action doesn’t appear to respect relative paths, so $Env:GITHUB_WORKSPACE..\Obfuscators\ won’t work. We need to pass it the full path.</p>
+<p>Our complete build code for this job now looks like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">build_obfuscators:</span><br><span class="line"> runs-on: windows-latest</span><br><span class="line"> steps:</span><br><span class="line"> — uses: actions&#x2F;checkout@v1</span><br><span class="line"> with:</span><br><span class="line"> repository: two06&#x2F;Obfuscators</span><br><span class="line"> ref: refs&#x2F;heads&#x2F;master</span><br><span class="line"> token: $&#123;&#123; secrets.REPO_ACCESS_KEY &#125;&#125;</span><br><span class="line"> </span><br><span class="line"> — name: Setup Nuget.exe</span><br><span class="line"> uses: warrenbuckley&#x2F;Setup-Nuget@v1</span><br><span class="line">- name: Nuget Restore</span><br><span class="line"> run: nuget restore $Env:GITHUB_WORKSPACE\..\Obfuscators\Obfuscators.sln</span><br><span class="line"> </span><br><span class="line"> — name: Build</span><br><span class="line"> run: |</span><br><span class="line"> cd “C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\”</span><br><span class="line"> .\MSBuild.exe $Env:GITHUB_WORKSPACE\..\Obfuscators\Obfuscators\Obfuscators.csproj</span><br><span class="line"> </span><br><span class="line"> — name: Upload</span><br><span class="line"> uses: actions&#x2F;upload-artifact@master</span><br><span class="line"> with:</span><br><span class="line"> name: Obfuscators</span><br><span class="line"> path: d:\a\Seatbelt-Build\Obfuscators\Obfuscators\bin\Debug\Obfuscators.exe</span><br></pre></td></tr></table></figure>
+<p>The obfuscator we are going to use renames classes within the target solution. We pass it the path to a solution file and it performs an in-place rename. This must occur before the target solution is built. This means we need to modify our build config to perform the following tasks in order:</p>
+<ul>
+<li>Fetch and build the obfuscator project</li>
+<li>Fetch the Seatbelt project</li>
+<li>Run the compiled obfuscator against the Seatbelt solution</li>
+<li>Build the modified Seatbelt solution</li>
+<li>Upload the artifact</li>
+</ul>
+<p>The obfuscator project has a large number of dependencies, thanks to its reliance on Roslyn. As we are running the two build tasks in different jobs, the dependencies are lost when we upload and download the complied artifact. We could use something like <a href="https://github.com/Fody/Fody" target="_blank" rel="noopener">Fody</a> to generate one, big EXE, but a far simpler option is to merge all our build jobs into one. This also lets us remove an upload and download step.</p>
+<p>With our changes applied, end up with our final build config:</p>
+<script src="https://gist.github.com/two06/e7d209d8e95d2893fd827497db8b8142.js"></script>
+
+<p>You may notice there are some inconsistencies with the way I’ve defined paths in this script. There appear to be a few issues with relative paths and environment variables, depending which actions you use; this is a beta release of Actions after all.</p>
+<p>When triggered, this build will generate an artifact with random class names.</p>
+<p><img src="build3.png" alt=""></p>
+<p>We can check the class names actually changed using iLSpy.</p>
+<p><img src="ilspy.png" alt=""></p>
+<p>We can then run the new binary, just to check it still works.</p>
+<p><img src="run2.png" alt=""></p>
+<p>This basic obfuscation isn’t enough to get the binary past Defender, but hopefully the process shown here goes into enough detail for you to start using GitHub Actions to build your own tooling.</p>
+<p>A quick note on triggers…</p>
+<p>There are a few different ways to trigger a build using Actions. The one we have been using for this post is a push trigger, which is fired whenever change are pushed to the repo. Actions does not currently have a way to manually trigger a build, which seems like quite a big omission. For now, I’m triggering builds by modifying readme files via the GitHub UI.</p>
+
+          
+          <hr>
+          <ul class="pager">
+              
+              <li class="previous">
+                  <a href="/two06.github.io/AMSI-as-a-Service-Automating-AV-Evasion/" data-toggle="tooltip" data-placement="left"
+                     title="AMSI as a Service - Automating AV Evasion">&larr; Previous Post</a>
+              </li>
+              
+              
+              <li class="next">
+                  <a href="/two06.github.io/Persistence-with-KeePass-Part-2/" data-toggle="tooltip" data-placement="top"
+                     title="Persistence with KeePass - Part 2">Next Post&rarr;</a>
+              </li>
+              
+          </ul>
+        
+  <br>
+  
+
+  
+  </div>
+
+
+        
+
+      </div>
+  </div>
+</article>
+
+<!-- Footer -->
+<!-- footer.ejs -->
+<footer>
+    <div class="text-center">
+      <ul class="list-inline">
+          
+              <li>
+                  <a href="/two06.github.io/atom.xml" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+          
+              <li>
+                  <a target="_blank" href="https://twitter.com/two06">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+          
+
+          
+
+          
+
+          
+              <li>
+                  <a target="_blank"  href="https://github.com/two06">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+
+      </ul>
+     <div class="text-muted copyright">
+            &copy;
+            
+            2019 - 2020
+            
+            
+              <i class="fa fa-user"></i>
+            
+            two06
+        <br>
+          
+              Powered by <a target="_blank" href="https://hexo.io">Hexo</a>
+          
+          
+          
+          
+      </div>
+    </div>
+</footer>
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/two06.github.io/js/main.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Another Infosec Blog</title>
+  
+  
+  <link href="/two06.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://blog.two06.info/"/>
+  <updated>2020-06-27T15:23:14.630Z</updated>
+  <id>https://blog.two06.info/</id>
+  
+  <author>
+    <name>two06</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Software Development Principals for Offensive Developers - Part 2 (Adapters)</title>
+    <link href="https://blog.two06.info/Software-Development-Principals-for-Offensive-Developers-Part-2-Adapters/"/>
+    <id>https://blog.two06.info/Software-Development-Principals-for-Offensive-Developers-Part-2-Adapters/</id>
+    <published>2020-02-26T15:45:19.000Z</published>
+    <updated>2020-06-27T15:23:14.630Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;In part 1 of this series, we introduced the concept of interfaces and single object responsibility by starting to design a rudimentary
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="Infosec" scheme="https://blog.two06.info/tags/Infosec/"/>
+    
+      <category term="Solid" scheme="https://blog.two06.info/tags/Solid/"/>
+    
+      <category term="Software Development" scheme="https://blog.two06.info/tags/Software-Development/"/>
+    
+      <category term="Development" scheme="https://blog.two06.info/tags/Development/"/>
+    
+      <category term="Design Patterns" scheme="https://blog.two06.info/tags/Design-Patterns/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Software Development Principals for Offensive Developers - Part 1 (Fundamentals)</title>
+    <link href="https://blog.two06.info/Software-Development-Principals-for-Offensive-Developers-Part-1-Fundamentals/"/>
+    <id>https://blog.two06.info/Software-Development-Principals-for-Offensive-Developers-Part-1-Fundamentals/</id>
+    <published>2020-02-18T16:04:06.000Z</published>
+    <updated>2020-06-27T15:11:23.397Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;Offensive security professionals are spending more time writing code. While the industry has seen a steady move towards &lt;a
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="Infosec" scheme="https://blog.two06.info/tags/Infosec/"/>
+    
+      <category term="Solid" scheme="https://blog.two06.info/tags/Solid/"/>
+    
+      <category term="Software Development" scheme="https://blog.two06.info/tags/Software-Development/"/>
+    
+      <category term="Development" scheme="https://blog.two06.info/tags/Development/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>AMSI as a Service - Automating AV Evasion</title>
+    <link href="https://blog.two06.info/AMSI-as-a-Service-Automating-AV-Evasion/"/>
+    <id>https://blog.two06.info/AMSI-as-a-Service-Automating-AV-Evasion/</id>
+    <published>2019-11-21T15:45:19.000Z</published>
+    <updated>2020-06-27T15:01:37.809Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;AMSI, the “AntiMalware Scan Interface”, has been around for some time. In a broad sense, it’s a component of Windows 10 which allows
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="Infosec" scheme="https://blog.two06.info/tags/Infosec/"/>
+    
+      <category term="Programming" scheme="https://blog.two06.info/tags/Programming/"/>
+    
+      <category term="AMSI" scheme="https://blog.two06.info/tags/AMSI/"/>
+    
+      <category term="DotNet" scheme="https://blog.two06.info/tags/DotNet/"/>
+    
+      <category term="Unit Testing" scheme="https://blog.two06.info/tags/Unit-Testing/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Building Tooling With GitHub Actions</title>
+    <link href="https://blog.two06.info/Building-Tooling-With-GitHub-Actions/"/>
+    <id>https://blog.two06.info/Building-Tooling-With-GitHub-Actions/</id>
+    <published>2019-11-06T15:29:22.000Z</published>
+    <updated>2020-06-27T14:43:10.353Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;Earlier this year, &lt;a href=&quot;https://twitter.com/_xpn_&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;XPN&lt;/a&gt; posted a &lt;a
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="DevOps" scheme="https://blog.two06.info/tags/DevOps/"/>
+    
+      <category term="Github Actions" scheme="https://blog.two06.info/tags/Github-Actions/"/>
+    
+      <category term="Github" scheme="https://blog.two06.info/tags/Github/"/>
+    
+      <category term="Red Team" scheme="https://blog.two06.info/tags/Red-Team/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Persistence with KeePass - Part 2</title>
+    <link href="https://blog.two06.info/Persistence-with-KeePass-Part-2/"/>
+    <id>https://blog.two06.info/Persistence-with-KeePass-Part-2/</id>
+    <published>2019-07-03T14:09:08.000Z</published>
+    <updated>2020-06-27T14:24:42.117Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;In &lt;a href=&quot;https://blog.two06.info/Stealing-KeePass-Credentials-With-Frida/&quot;&gt;part 1&lt;/a&gt; we saw how we can use KeePass to gain
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="Infosec" scheme="https://blog.two06.info/tags/Infosec/"/>
+    
+      <category term="Cobalt Strike" scheme="https://blog.two06.info/tags/Cobalt-Strike/"/>
+    
+      <category term="Programming" scheme="https://blog.two06.info/tags/Programming/"/>
+    
+      <category term="Powershell" scheme="https://blog.two06.info/tags/Powershell/"/>
+    
+      <category term="Dotnet" scheme="https://blog.two06.info/tags/Dotnet/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Persistence with KeePass - Part 1</title>
+    <link href="https://blog.two06.info/Persistence-with-KeePass-Part-1/"/>
+    <id>https://blog.two06.info/Persistence-with-KeePass-Part-1/</id>
+    <published>2019-06-30T13:47:42.000Z</published>
+    <updated>2020-06-27T14:01:55.321Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;In this post we are going to look at a method of gaining persistence using KeePass. This approach requires permissions to write to
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="Infosec" scheme="https://blog.two06.info/tags/Infosec/"/>
+    
+      <category term="Persistence" scheme="https://blog.two06.info/tags/Persistence/"/>
+    
+      <category term="Keepass" scheme="https://blog.two06.info/tags/Keepass/"/>
+    
+      <category term="Cobalt Strike" scheme="https://blog.two06.info/tags/Cobalt-Strike/"/>
+    
+      <category term="Shellcode" scheme="https://blog.two06.info/tags/Shellcode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Stealing KeePass Credentials With Frida</title>
+    <link href="https://blog.two06.info/Stealing-KeePass-Credentials-With-Frida/"/>
+    <id>https://blog.two06.info/Stealing-KeePass-Credentials-With-Frida/</id>
+    <published>2019-06-02T12:55:58.000Z</published>
+    <updated>2020-06-27T13:50:41.086Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;In this post, we’re going to take a quick look at &lt;a href=&quot;https://frida.re&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Frida&lt;/a&gt; and use it to
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="Infosec" scheme="https://blog.two06.info/tags/Infosec/"/>
+    
+      <category term="Frida" scheme="https://blog.two06.info/tags/Frida/"/>
+    
+      <category term="Hooking" scheme="https://blog.two06.info/tags/Hooking/"/>
+    
+  </entry>
+  
+</feed>

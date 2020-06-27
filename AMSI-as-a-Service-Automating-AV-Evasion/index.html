@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- layout.ejs-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="two06">
+    <meta name="keyword" content="">
+    <link rel="canonical" href="https://blog.two06.info/two06.github.io/AMSI-as-a-Service-Automating-AV-Evasion/">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Another Infosec Blog" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <title>
+        
+        AMSI as a Service - Automating AV Evasion｜two06 Infosec Blog
+        
+    </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    
+<link rel="stylesheet" href="/two06.github.io/css/main.css">
+
+
+    
+      <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+      
+<link rel="stylesheet" href="/two06.github.io/css/highlight.css">
+
+    
+
+    
+
+
+    
+
+    
+
+    
+
+
+    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    
+
+
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- user customization -->
+    
+<link rel="stylesheet" href="/two06.github.io/css/arsnippet.css">
+
+    
+<script src="/two06.github.io/js/arsnippet.css.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<style>
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<header>
+  <nav class="navbar navbar-default header-navbar" id="nav-top" data-ispost = "true" data-istags="false" data-ishome = "false" >
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="false"  data-target="#website_navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand animated pulse">
+          <a class="brand-logo" href="/two06.github.io/">
+            Another Infosec Blog
+          </a>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="website_navbar">
+          <ul class="nav navbar-nav navbar-right">
+              
+                <li>
+                  <a href="/two06.github.io/">home</a>
+                </li>
+              
+                <li>
+                  <a href="/two06.github.io/Other-Research/">Other Research</a>
+                </li>
+              
+                <li>
+                  <a href="/two06.github.io/archives/">archives</a>
+                </li>
+              
+                <li>
+                  <a href="/two06.github.io/atom.xml">RSS</a>
+                </li>
+              
+          </ul>
+      </div>
+  </nav>
+
+
+  
+    <style>
+       .intro-header {
+          background-image: url('');
+      }
+    </style>
+
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                    <div class="site-heading">
+                        <h1>AMSI as a Service - Automating AV Evasion</h1>
+                        
+                        
+                          <span class="meta">
+                               <span class="meta-item">Author: two06</span>
+                               <span class="meta-item">Date: Nov 21, 2019</span>
+                               
+                          </span>
+                          <!--<div class="tags text-center">
+                              Categories: 
+                          </div>-->
+                          <div class="tags text-center">
+                              Tags: 
+                              <a class="tag" href="/two06.github.io/tags/#Infosec"
+                                 title="Infosec">Infosec</a>
+                              
+                              <a class="tag" href="/two06.github.io/tags/#Programming"
+                                 title="Programming">Programming</a>
+                              
+                              <a class="tag" href="/two06.github.io/tags/#AMSI"
+                                 title="AMSI">AMSI</a>
+                              
+                              <a class="tag" href="/two06.github.io/tags/#DotNet"
+                                 title="DotNet">DotNet</a>
+                              
+                              <a class="tag" href="/two06.github.io/tags/#Unit Testing"
+                                 title="Unit Testing">Unit Testing</a>
+                              
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</header>
+
+
+<!-- Main Content -->
+<!-- post.ejs -->
+<article>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-1 col-sm-9">
+          
+          
+          <p>AMSI, the “AntiMalware Scan Interface”, has been around for some time. In a broad sense, it’s a component of Windows 10 which allows applications to integrate with AV products, though most people know it for it’s ability to make file-less malware visible to AV engines.</p>
+<p>For this post, its the broad sense we are interested in.</p>
+<p>When we build tooling, we want to make sure our shiney new payload isn’t going to trigger AV as soon as we run it. This normally involves setting up a box with the AV engine installed (remembering to turn off automatic sample submission) and running our compiled code on that host. Apart from being a bit of a pain, this approach doesn’t really work if we want to bring in some dev-ops principals, such as automating tool builds (like we looked at in this post). Ideally, we’d like something we can call as part of our build process which will give us an indication of whether our code is AV safe or not. Bonus points for highlighting what is causing it to be flagged.</p>
+<p>AMSI provides an interface to the installed AV engine and is designed to be integrated into other applications. The <a href="https://docs.microsoft.com/en-us/windows/win32/amsi/dev-audience" target="_blank" rel="noopener">Microsoft docs</a> for AMSI include enough detail to consume the AMSI API, or even build an AMIS provider, if you’re so inclined.</p>
+<p>For this post, we are going to use the <a href="https://docs.microsoft.com/en-us/windows/win32/amsi/antimalware-scan-interface-functions" target="_blank" rel="noopener">AMSI Scan Functions</a>, as described by Microsoft. These calls give us everything we need to pass data into the installed AV engine (assuming it integrates with AMSI anyway) and determine if a detection occurred. The the provided code samples are in C, which isn’t really much use for us if we want to build on top of AMSI. Luckily, we can quite easily wrap native function calls using C#.</p>
+<p>Most development is just assembling blocks of code from StackOverflow, and this project is no exception. There are a few examples of C# wrappers for AMSI out there, but <a href="https://stackoverflow.com/questions/40888849/windows-defender-antivirus-scan-from-c-sharp-accessviolation-exception" target="_blank" rel="noopener">this</a> is the one I’ve based my work on. There are a few problems with this code, which we’ll get into later, but for now, here’s what we’re starting with (copy-pasted from StackOverflow).</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> AMSI_RESULT</span><br><span class="line">    &#123;</span><br><span class="line">        AMSI_RESULT_CLEAN = <span class="number">0</span>,</span><br><span class="line">        AMSI_RESULT_NOT_DETECTED = <span class="number">1</span>,</span><br><span class="line">        AMSI_RESULT_DETECTED = <span class="number">32768</span></span><br><span class="line">    &#125;</span><br><span class="line">[<span class="meta">DllImport(<span class="meta-string">"Amsi.dll"</span>, EntryPoint = <span class="meta-string">"AmsiInitialize"</span>, CallingConvention = CallingConvention.StdCall)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="keyword">int</span> <span class="title">AmsiInitialize</span>(<span class="params">[MarshalAs(UnmanagedType.LPWStr</span>)]<span class="keyword">string</span> appName, <span class="keyword">out</span> IntPtr amsiContext)</span>;</span><br><span class="line">[<span class="meta">DllImport(<span class="meta-string">"Amsi.dll"</span>, EntryPoint = <span class="meta-string">"AmsiUninitialize"</span>, CallingConvention = CallingConvention.StdCall)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="keyword">void</span> <span class="title">AmsiUninitialize</span>(<span class="params">IntPtr amsiContext</span>)</span>;</span><br><span class="line">[<span class="meta">DllImport(<span class="meta-string">"Amsi.dll"</span>, EntryPoint = <span class="meta-string">"AmsiOpenSession"</span>, CallingConvention = CallingConvention.StdCall)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="keyword">int</span> <span class="title">AmsiOpenSession</span>(<span class="params">IntPtr amsiContext, <span class="keyword">out</span> IntPtr session</span>)</span>;</span><br><span class="line">[<span class="meta">DllImport(<span class="meta-string">"Amsi.dll"</span>, EntryPoint = <span class="meta-string">"AmsiCloseSession"</span>, CallingConvention = CallingConvention.StdCall)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="keyword">void</span> <span class="title">AmsiCloseSession</span>(<span class="params">IntPtr amsiContext, IntPtr session</span>)</span>;</span><br><span class="line">[<span class="meta">DllImport(<span class="meta-string">"Amsi.dll"</span>, EntryPoint = <span class="meta-string">"AmsiScanString"</span>, CallingConvention = CallingConvention.StdCall)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="keyword">int</span> <span class="title">AmsiScanString</span>(<span class="params">IntPtr amsiContext, [InAttribute(</span>)] [<span class="title">MarshalAsAttribute</span>(<span class="params">UnmanagedType.LPWStr</span>)]<span class="keyword">string</span> @<span class="keyword">string</span>, [<span class="title">InAttribute</span>(<span class="params"></span>)] [<span class="title">MarshalAsAttribute</span>(<span class="params">UnmanagedType.LPWStr</span>)]<span class="keyword">string</span> contentName, IntPtr session, <span class="keyword">out</span> AMSI_RESULT result)</span>;</span><br><span class="line">[<span class="meta">DllImport(<span class="meta-string">"Amsi.dll"</span>, EntryPoint = <span class="meta-string">"AmsiScanBuffer"</span>, CallingConvention = CallingConvention.StdCall)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="keyword">int</span> <span class="title">AmsiScanBuffer</span>(<span class="params">IntPtr amsiContext, [In] [MarshalAs(UnmanagedType.LPArray</span>)] <span class="keyword">byte</span>[] buffer, <span class="keyword">ulong</span> length, [<span class="title">In</span>(<span class="params"></span>)] [<span class="title">MarshalAs</span>(<span class="params">UnmanagedType.LPWStr</span>)] <span class="keyword">string</span> contentName, IntPtr session, <span class="keyword">out</span> AMSI_RESULT result)</span>;</span><br><span class="line"><span class="comment">//This method apparently exists on MSDN but not in AMSI.dll (version 4.9.10586.0)</span></span><br><span class="line">[<span class="meta">DllImport(<span class="meta-string">"Amsi.dll"</span>, CharSet = CharSet.Unicode, CallingConvention = CallingConvention.StdCall)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="keyword">bool</span> <span class="title">AmsiResultIsMalware</span>(<span class="params">AMSI_RESULT result</span>)</span>;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">CallAntimalwareScanInterface</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    IntPtr amsiContext;</span><br><span class="line">    IntPtr session;</span><br><span class="line">    AMSI_RESULT result = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> returnValue;</span><br><span class="line">returnValue = AmsiInitialize(<span class="string">"VirusScanAPI"</span>, <span class="keyword">out</span> amsiContext); <span class="comment">//appName is the name of the application consuming the Amsi.dll. Here my project name is VirusScanAPI.   </span></span><br><span class="line">    returnValue = AmsiOpenSession(amsiContext, <span class="keyword">out</span> session);</span><br><span class="line">    returnValue = AmsiScanString(amsiContext, <span class="string">@"X5O!P%@AP[4\PZX54(P^)7CC)7&#125;$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*"</span>, <span class="string">"EICAR"</span>, session, <span class="keyword">out</span> result); <span class="comment">//I've used EICAR test string.   </span></span><br><span class="line">    AmsiCloseSession(amsiContext, session);</span><br><span class="line">    AmsiUninitialize(amsiContext);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>This example shows how we can call native functions in C#, using the System.Runtime.Interop namespace. The DLLImport statements tell our managed code what functions we want to access from the unmanaged DLL and define the method signature that our managed code will use. The AMSI_RESULT enum defines some of the possible scan results (more on this later), which is then used in the “CallAntimalwareScanInterface” method.</p>
+<p>This method initialises an AMSI context, creates a new session then scans a string before doing some clean up. In this instance, the code is scanning the EICAR AV test file, a string designed for AV testing which should trigger any engine that scans it. If you want to follow along, drop this code into Visual Studio, fix up the namespace imports and see what happens when you run it; you should see a detected response.</p>
+<p>We now have a way to call AMSI from managed code. We could fix up some of the problems with this example, such as the hard-coded string, package it in a desktop app and start scanning our payloads. But, wouldn’t it be nice to have this sat on a remote machine, callable from wherever we need it? Now that we have AMSI available in C#, we can expose all the functionality via a WebAPI endpoint.</p>
+<p>Before we get carried away, let’s take a moment to talk about unit testing. We’re likely going to end up making a lot of changes to our AMSI wrapper as we work on adding new features and debugging issues. We want a way to verify that our changes don’t break some simple requirements, i.e. EICAR is still detected. This is where unit testing becomes invaluable. Unit testing provides a way to test our code in isolation (to an extent anyway, we’re still relying on AMSI here), so we can verify that changes don’t break our code. This isn’t a professional development project, so I’m not going to worry too much about test coverage or TDD best practices, but I will show you a quick example of how we can test our AMSI wrapper.</p>
+<p>After adding a new unit test project to our solution, we can define a new test class. I like to name my classes with what component the test covers and the methods with descriptive names. So, inside my “AntiMalwareScanInterfaceTests.cs” class, I’ve added the following code:</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">TestMethod</span>]</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">RandomString_Is_Not_Detected</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span> &#123;</span><br><span class="line"> <span class="comment">//arange</span></span><br><span class="line"> <span class="keyword">var</span> sample = RandomData.RandomString(<span class="number">10</span>);</span><br><span class="line"> <span class="keyword">var</span> AMSI_Provider = <span class="keyword">new</span> AntiMalwareScanInterface();</span><br><span class="line"><span class="comment">//act</span></span><br><span class="line"> <span class="keyword">var</span> detection = AMSI_Provider.CallAntimalwareScanInterface(sample);</span><br><span class="line"><span class="comment">//assert</span></span><br><span class="line"> Assert.AreEqual(<span class="literal">false</span>, detection, “Sample should not be deteceted.”);</span><br><span class="line"> &#125;</span><br><span class="line">[<span class="meta">TestMethod</span>]</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">EICAR_Is_Detected</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span> &#123;</span><br><span class="line"> <span class="comment">//arange</span></span><br><span class="line"> <span class="keyword">var</span> sample1 = @”X5O!P%@AP[<span class="number">4</span>\PZX54(P^)<span class="number">7</span>CC)<span class="number">7</span>&#125;$EIC”;</span><br><span class="line"> <span class="keyword">var</span> sample2 = @”AR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*”;</span><br><span class="line"> <span class="keyword">var</span> AMSI_Provider = <span class="keyword">new</span> AntiMalwareScanInterface();</span><br><span class="line"><span class="comment">//act</span></span><br><span class="line"> <span class="keyword">var</span> detection = AMSI_Provider.CallAntimalwareScanInterface(sample1 + sample2);</span><br><span class="line"><span class="comment">//assert</span></span><br><span class="line"> Assert.AreEqual(<span class="literal">true</span>, detection, “EICAR file should be detected”);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p> These tests follow the “arrange, act, asset” method of writing tests. First, we set up the things the test will use, then we perform the action we are testing, then we check that the results are what we expected. In these tests, we check that a random string is not flagged as malware while the EICAR file is flagged. The EICAR string is split in two to avoid AV flagging the test class (a free AV bypass for you right there…).</p>
+<p>Now, with our tests in place, we can proceed to add new functionality. I’m not going to go into too much detail here, it’s not my intention to teach you C# in one post. Basically, we want to add a WebAPI project to our solution, then import the AMSI wrapper project and start calling the functions. You can see how thats done in the code released at the end of this post. Here’s a screenshot of the classes I’ve added to the solution. I’m mainly trying to keep areas of responsibility separated, which makes our code easy to test, should we want to add more unit tests later.</p>
+<p><img src="solutionexplorer.png" alt=""></p>
+<p>As a starting point, we are going to add two features. The ability to scan a file and get a detected/not detected result, and the ability to scan groups of lines within a file. This lets us narrow down what code is causing our file to be flagged.</p>
+<p>To make these changes, we need to fix some issues with the AMSI wrapper. First, we want to call the AmsiScanBuffer function, rather than AmsiScanString, as this is what is called by Powershell and other native applications. There is also a bug in the way the StackOverflow code handles the return values, the scan result is <a href="https://docs.microsoft.com/en-gb/windows/win32/api/amsi/ne-amsi-amsi_result" target="_blank" rel="noopener">meant to be an integer</a> with anything 32768 or over being considered a detection. These changes are quite straight forward:</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">DllImport(“Amsi.dll”, EntryPoint = “AmsiScanBuffer”, CallingConvention = CallingConvention.StdCall)</span>]</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="keyword">int</span> <span class="title">AmsiScanBuffer</span>(<span class="params">IntPtr amsiContext, <span class="keyword">byte</span>[] buffer, <span class="keyword">uint</span> length, <span class="keyword">string</span> contentName, IntPtr session, <span class="keyword">out</span> <span class="keyword">int</span> result</span>)</span>;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">bool</span> <span class="title">CallAntimalwareScanInterface</span>(<span class="params"><span class="keyword">byte</span>[] sample</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    IntPtr amsiContext;</span><br><span class="line">    IntPtr session;</span><br><span class="line">    <span class="keyword">int</span> result = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> returnValue;</span><br><span class="line">    returnValue = AmsiInitialize(@”PowerShell_C:\Windows\System32\WindowsPowerShell\v1<span class="number">.0</span>\powershell.exe_10<span class="number">.0</span><span class="number">.18362</span><span class="number">.1</span><span class="string">", out amsiContext);</span></span><br><span class="line"><span class="string">    returnValue = AmsiOpenSession(amsiContext, out session);</span></span><br><span class="line"><span class="string">    returnValue = AmsiScanBuffer(amsiContext, sample, (uint)sample.Length, “Sample”, session, out result);</span></span><br><span class="line"><span class="string">    AmsiCloseSession(amsiContext, session);</span></span><br><span class="line"><span class="string">    AmsiUninitialize(amsiContext);</span></span><br><span class="line"><span class="string">    return ResultHelper.ResultIsMalware(result);</span></span><br><span class="line"><span class="string"> &#125;</span></span><br></pre></td></tr></table></figure>
+<p>Rather than passing in a string, we now pass a byte array. We’ve changed the DllImport declaration and now call the AmsiScanBuffer function. This code also shows a change to the appName passed in to AmsiInitialize, we’ll look at this in a bit more depth shortly.</p>
+<p>The ResultHelper method takes the int returned from AmsiScanBuffer and converts it to a bool:</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">ResultIsMalware</span>(<span class="params"><span class="keyword">int</span> result</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> AMSI_RESULT_CLEAN = <span class="number">0</span>,</span><br><span class="line">    AMSI_RESULT_NOT_DETECTED = <span class="number">1</span>,</span><br><span class="line">    AMSI_RESULT_BLOCKED_BY_ADMIN_START = <span class="number">16384</span>,</span><br><span class="line">    AMSI_RESULT_BLOCKED_BY_ADMIN_END = <span class="number">20479</span>,</span><br><span class="line">    AMSI_RESULT_DETECTED = <span class="number">32768</span>;</span><br><span class="line">    <span class="keyword">if</span> (result &gt;= AMSI_RESULT_DETECTED)</span><br><span class="line">        &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (result &gt;= AMSI_RESULT_BLOCKED_BY_ADMIN_START &amp;&amp; result &lt;= AMSI_RESULT_BLOCKED_BY_ADMIN_END)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//handle this better if needed. </span></span><br><span class="line">        <span class="comment">//”The admin policy on this machine does not allow you to scan. The value returned was &#123;scanResult&#125;. See https://msdn.microsoft.com/en-us/library/windows/desktop/dn889584(v=vs.85).aspx”</span></span><br><span class="line">    &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>With these changes made, we can now build API calls to pass data to AMSI.</p>
+<p>Scanning a file is as simple as calling our above code and returning the boolean:</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">AMSIScanBufferController</span> : <span class="title">ApiController</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> System.Web.Http.Results.<span class="function">JsonResult&lt;<span class="keyword">bool</span>&gt; <span class="title">Post</span>(<span class="params">HttpRequestMessage request</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">var</span> sample = request.Content.ReadAsStringAsync().Result;</span><br><span class="line">        <span class="keyword">var</span> bytes = Encoding.UTF8.GetBytes(sample);</span><br><span class="line">        <span class="keyword">var</span> scanner = <span class="keyword">new</span> AntiMalwareScanInterface();</span><br><span class="line">        <span class="keyword">var</span> result = scanner.CallAntimalwareScanInterface(bytes);</span><br><span class="line">        <span class="keyword">return</span> Json(result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Scanning blocks of lines is a bit more complicated. Basically we split the file into lines, then pass those lines as a byte array to AmsiScanBuffer.</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">AMSIScanLineBlocksController</span> : <span class="title">ApiController</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> System.Web.Http.Results.JsonResult&lt;List&lt;BlockScanResult&gt;&gt; Post(<span class="keyword">int</span> blockSize, HttpRequestMessage request)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> sample = request.Content.ReadAsStringAsync().Result;</span><br><span class="line">        <span class="keyword">var</span> lines = sample.Split(<span class="keyword">new</span> [] &#123; Environment.NewLine&#125;, StringSplitOptions.None);</span><br><span class="line">        <span class="keyword">var</span> sub_sample = lines.Skip(<span class="number">0</span>).Take(blockSize);</span><br><span class="line">        <span class="keyword">var</span> result = <span class="keyword">new</span> List&lt;BlockScanResult&gt;();</span><br><span class="line">        <span class="keyword">var</span> scanner = <span class="keyword">new</span> AntiMalwareScanInterface();</span><br><span class="line">        <span class="keyword">var</span> block = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (sub_sample.Count() != <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> tempSample = <span class="keyword">string</span>.Join(“\r\n”, sub_sample);</span><br><span class="line">            <span class="keyword">var</span> tempSampleBytes = Encoding.UTF8.GetBytes(tempSample);</span><br><span class="line">            <span class="keyword">var</span> scanResult = scanner.CallAntimalwareScanInterface(tempSampleBytes);</span><br><span class="line">            <span class="keyword">if</span> (scanResult)</span><br><span class="line">            &#123;</span><br><span class="line">                result.Add(<span class="keyword">new</span> BlockScanResult() &#123;BlockNumber = block, BlockText = tempSample &#125;);</span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line">            sub_sample = lines.Skip(blockSize*block).Take(blockSize);</span><br><span class="line">            block++;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> Json(result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>BlockScanResult is just a class with an int and string property, so we can return the text that triggered AMSI.</p>
+<p>Ok. Let’s take a look at that appName. The screenshot below shows the result when the appName is set to “two06” and <a href="https://github.com/rasta-mouse/AmsiScanBufferBypass/blob/master/ASBBypass.ps1" target="_blank" rel="noopener">this</a> payload is passed in to AMSI.</p>
+<p><img src="debug1.png" alt=""></p>
+<p>That payload, if run from PowerShell, will get flagged. So why is it not flagged here? We can investigate what’s going on using <a href="https://frida.re/" target="_blank" rel="noopener">Frida</a>. We will use <a href="https://github.com/FuzzySecurity/Fermion" target="_blank" rel="noopener">Fermion</a>, which has an <a href="https://github.com/FuzzySecurity/Fermion/blob/master/Examples/AmsiScanBuffer.js" target="_blank" rel="noopener">example</a> script to hook AMSI included.</p>
+<p>With Fermion running as admin, and a PowerShell session open, we can load the example script and inject into the PowerShell.exe process. Triggering AMSI by running amsi bypass payload will show us what is passed in from PowerShell.</p>
+<p><img src="fermion.png" alt=""></p>
+<p>We can see the result is “AMSI_RESULT_DETECTED”, and the buffer contains our payload. The only difference is the appName value. Some folks may already know this (I did not), but AMSI will return different result based on the appName passed to AmsiInitialize. Updating our code to use the PowerShell appName results in a successful detection.</p>
+<p><img src="debug2.png" alt=""></p>
+<p>Ok. We now have code which will let us call AMSI via a .NET WebAPI endpoint. Let’s see a full example of how we can use this.</p>
+<p>For this test, we are going to use some <a href="https://github.com/FuzzySecurity/Fermion/blob/master/Examples/AmsiScanBuffer.js" target="_blank" rel="noopener">code</a> which we know will trigger AV. This code does some ShellCode injection from C# and includes two blobs of ShellCode. One of these is out of the Metasploit Framework and should be flagged by AV.</p>
+<p>First, we are going to call our API to check if the file is flagged.</p>
+<p><img src="postman1.png" alt=""></p>
+<p>Ok, so this code is flagged by Defender. Now, we want to narrow down what part of the code is causing defender to trigger, so that we can look to obfuscate it and create a bypass. This is where a bit of trial and error is needed, if we set the scan block size to the wrong value, we risk splitting up whatever lines are causing Defender to trigger, to large and we will have two much code to manually analyse. Lets try a block size of 10 to start with.</p>
+<p><img src="postman2.png" alt=""></p>
+<p>No detections. We know this isn’t right as our first call clearly showed Defender was flagging this file. Lets increase the block size to 30.</p>
+<p><img src="postman3.png" alt=""></p>
+<p>Ok, we get a detection now. This one includes ShellCode from both payloads, lets tweak the block size a little bit and see if we can clean that output up.</p>
+<p><img src="postman4.png" alt=""></p>
+<p>There we go. With a block size of 45 lines, we can see that Defender flags on both blobs of ShellCode. So, if we wanted to get this past Defender, we would need to obfuscate that ShellCode somehow, I’ll leave that as an exercise for the reader.</p>
+<p>So, to wrap things up, we now have a way to pass our tooling into an AV engine (provided that engine supports AMSI). We can call this API from any host we like, which means we can integrate these checks into build pipelines. If a file is flagged, we can then narrow down exactly where it’s flagged and start looking to obfuscate our payloads to get them past AV. This isn’t going to remove the need to test payloads once development is finished, but it should make things a bit easier during the development phase.</p>
+<p>There’s still plenty of scope for further work here; starting with building up a list of the appName values used by Windows and making those a parameter that can be passed in to the API. For now, if you use this code, you’re limited to testing against what would be flagged from a PowerShell session. It’s also worth noting that the API does not implement any authentication; be careful if you deploy it anywhere.</p>
+<p>This post has been a bit longer than I intended, but I wanted to explain some of the key concepts in a bit more detail and introduce unit testing for tool development. As an exercise for the reader, this API would work really well if called from a unit test…</p>
+<p>The code for this project can be found on my <a href="https://github.com/two06/AMSI_Handler" target="_blank" rel="noopener">GitHub</a>.</p>
+
+          
+          <hr>
+          <ul class="pager">
+              
+              <li class="previous">
+                  <a href="/two06.github.io/Software-Development-Principals-for-Offensive-Developers-Part-1-Fundamentals/" data-toggle="tooltip" data-placement="left"
+                     title="Software Development Principals for Offensive Developers - Part 1 (Fundamentals)">&larr; Previous Post</a>
+              </li>
+              
+              
+              <li class="next">
+                  <a href="/two06.github.io/Building-Tooling-With-GitHub-Actions/" data-toggle="tooltip" data-placement="top"
+                     title="Building Tooling With GitHub Actions">Next Post&rarr;</a>
+              </li>
+              
+          </ul>
+        
+  <br>
+  
+
+  
+  </div>
+
+
+        
+
+      </div>
+  </div>
+</article>
+
+<!-- Footer -->
+<!-- footer.ejs -->
+<footer>
+    <div class="text-center">
+      <ul class="list-inline">
+          
+              <li>
+                  <a href="/two06.github.io/atom.xml" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+          
+              <li>
+                  <a target="_blank" href="https://twitter.com/two06">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+          
+
+          
+
+          
+
+          
+              <li>
+                  <a target="_blank"  href="https://github.com/two06">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+
+      </ul>
+     <div class="text-muted copyright">
+            &copy;
+            
+            2019 - 2020
+            
+            
+              <i class="fa fa-user"></i>
+            
+            two06
+        <br>
+          
+              Powered by <a target="_blank" href="https://hexo.io">Hexo</a>
+          
+          
+          
+          
+      </div>
+    </div>
+</footer>
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/two06.github.io/js/main.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+</body>
+
+</html>
