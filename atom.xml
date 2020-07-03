@@ -6,7 +6,7 @@
   <link href="/two06.github.io/atom.xml" rel="self"/>
   
   <link href="https://blog.two06.info/"/>
-  <updated>2020-06-27T15:23:14.630Z</updated>
+  <updated>2020-07-03T15:24:52.380Z</updated>
   <id>https://blog.two06.info/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Reading Windows Sticky Notes</title>
+    <link href="https://blog.two06.info/Reading-Windows-Sticky-Notes/"/>
+    <id>https://blog.two06.info/Reading-Windows-Sticky-Notes/</id>
+    <published>2020-07-03T13:55:20.000Z</published>
+    <updated>2020-07-03T15:24:52.380Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;Sticky Notes has been part of Windows since at least Windows 7. For those who aren’t familiar with it, Sticky Notes allows the user to
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="Programming" scheme="https://blog.two06.info/tags/Programming/"/>
+    
+      <category term="PInvoke" scheme="https://blog.two06.info/tags/PInvoke/"/>
+    
+  </entry>
   
   <entry>
     <title>Software Development Principals for Offensive Developers - Part 2 (Adapters)</title>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- layout.ejs-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="two06">
+    <meta name="keyword" content="">
+    <link rel="canonical" href="https://blog.two06.info/two06.github.io/Reading-Windows-Sticky-Notes/">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Another Infosec Blog" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <title>
+        
+        Reading Windows Sticky Notes｜two06 Infosec Blog
+        
+    </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    
+<link rel="stylesheet" href="/two06.github.io/css/main.css">
+
+
+    
+      <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+      
+<link rel="stylesheet" href="/two06.github.io/css/highlight.css">
+
+    
+
+    
+
+
+    
+
+    
+
+    
+
+
+    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    
+
+
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- user customization -->
+    
+<link rel="stylesheet" href="/two06.github.io/css/arsnippet.css">
+
+    
+<script src="/two06.github.io/js/arsnippet.css.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<style>
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<header>
+  <nav class="navbar navbar-default header-navbar" id="nav-top" data-ispost = "true" data-istags="false" data-ishome = "false" >
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="false"  data-target="#website_navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand animated pulse">
+          <a class="brand-logo" href="/two06.github.io/">
+            Another Infosec Blog
+          </a>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="website_navbar">
+          <ul class="nav navbar-nav navbar-right">
+              
+                <li>
+                  <a href="/two06.github.io/">home</a>
+                </li>
+              
+                <li>
+                  <a href="/two06.github.io/Other-Research/">Other Research</a>
+                </li>
+              
+                <li>
+                  <a href="/two06.github.io/archives/">archives</a>
+                </li>
+              
+                <li>
+                  <a href="/two06.github.io/atom.xml">RSS</a>
+                </li>
+              
+          </ul>
+      </div>
+  </nav>
+
+
+  
+    <style>
+       .intro-header {
+          background-image: url('');
+      }
+    </style>
+
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                    <div class="site-heading">
+                        <h1>Reading Windows Sticky Notes</h1>
+                        
+                        
+                          <span class="meta">
+                               <span class="meta-item">Author: two06</span>
+                               <span class="meta-item">Date: Jul 3, 2020</span>
+                               
+                          </span>
+                          <!--<div class="tags text-center">
+                              Categories: 
+                          </div>-->
+                          <div class="tags text-center">
+                              Tags: 
+                              <a class="tag" href="/two06.github.io/tags/#Programming"
+                                 title="Programming">Programming</a>
+                              
+                              <a class="tag" href="/two06.github.io/tags/#PInvoke"
+                                 title="PInvoke">PInvoke</a>
+                              
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</header>
+
+
+<!-- Main Content -->
+<!-- post.ejs -->
+<article>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-1 col-sm-9">
+          
+          
+          <p>Sticky Notes has been part of Windows since at least Windows 7. For those who aren’t familiar with it, Sticky Notes allows the user to add a quick note to their desktop. Here’s a screenshot of one on a Windows 10 machine:</p>
+<p><img src="StickyNotesExample.png" alt=""></p>
+<p>There will always be a chance that a user will leave something interesting in one of these notes, so knowing how to read them could be useful. While we might just be able to screenshot the contents, in this post we are going to look at how we can read the note contents from their storage files. </p>
+<p>The first thing we need to do is find the files which hold the note data. Thanks to Sysinternals, this can be easily achieved using ProcMon and a few filters. </p>
+<p>With ProcMon running, we can run Sticky Notes and save a new note, then pause the capture and add a filter for the ReadFile operation and the StickyNotes application. Scrolling through the results gives us this path in the users AppData folder, which looks promising. </p>
+<p><img src="ProcMon.png" alt=""></p>
+<p>We can open this file with a SQLite browser and examine the contents. If you try and copy this somewhere else to read, you won’t get any data; you need to also copy the other SQLite related files.</p>
+<p><img src="DBBrowser.png" alt=""></p>
+<p>So, on our test VM (running the latest build of Win 10), we can read the note content using SQLite. We should be able to read this quite easily with C#, using the Microsoft.Data.SQLite package from NuGet. With the NuGet package installed, we just need to run a simple SELECT query to grab our data. </p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">var</span> appData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);</span><br><span class="line">        <span class="keyword">var</span> dbRelativePath = <span class="string">@"\Packages\Microsoft.MicrosoftStickyNotes_8wekyb3d8bbwe\LocalState\plum.sqlite"</span>;</span><br><span class="line">        <span class="keyword">var</span> results = RunQuery(appData + dbRelativePath);</span><br><span class="line">        <span class="keyword">foreach</span>(<span class="keyword">var</span> result <span class="keyword">in</span> results)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(result);</span><br><span class="line">        &#125;</span><br><span class="line">        Console.ReadLine();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> List&lt;<span class="keyword">string</span>&gt; <span class="title">RunQuery</span>(<span class="params"><span class="keyword">string</span> dbPath</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">var</span> list = <span class="keyword">new</span> List&lt;<span class="keyword">string</span>&gt;();</span><br><span class="line">        <span class="keyword">using</span> (<span class="keyword">var</span> connection = <span class="keyword">new</span> SqliteConnection(<span class="string">"Data Source="</span> + dbPath))</span><br><span class="line">        &#123;</span><br><span class="line">            connection.Open();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> command = connection.CreateCommand();</span><br><span class="line">            command.CommandText =</span><br><span class="line">            <span class="string">@"</span></span><br><span class="line"><span class="string">                SELECT text</span></span><br><span class="line"><span class="string">                FROM note</span></span><br><span class="line"><span class="string">            "</span>;</span><br><span class="line">            <span class="keyword">using</span> (<span class="keyword">var</span> reader = command.ExecuteReader())</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">while</span> (reader.Read())</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">var</span> text = reader.GetString(<span class="number">0</span>);</span><br><span class="line">                    list.Add(text);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>This is a good start, but we should really practice some defensive programming when building our tools. In this case, we want to check the SQLite DB exists before we try and read it and handle any exceptions so we can exit our code cleanly.</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">var</span> appData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);</span><br><span class="line">        <span class="keyword">var</span> dbRelativePath = <span class="string">@"\Packages\Microsoft.MicrosoftStickyNotes_8wekyb3d8bbwe\LocalState\plum.sqlite"</span>;</span><br><span class="line">        <span class="keyword">if</span>(!File.Exists(appData + dbRelativePath))</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">"[*] StickNotes SQLite DB not found!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> results = RunQuery(appData + dbRelativePath);</span><br><span class="line">            <span class="keyword">foreach</span> (<span class="keyword">var</span> result <span class="keyword">in</span> results)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(result);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (Exception)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">"[*] Exception occured reading StickyNotes DB!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">            </span><br><span class="line">        Console.ReadLine();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>We now have a way to read the Sticky Notes data for newer versions of Windows 10. However, prior to the 1607 anniversary update, the notes data was not stored in a SQLite DB. Instead, it was stored in a COM Structured Storage object (if you’re wondering how I know this, I googled it).</p>
+<p>I don’t have an old version of Windows 10, but I do have a Win 7 VM. </p>
+<p>We could repeat the ProcMon step above, or we could just google the path. In either case, we should find the notes data stored in a .snt file in the users AppData Roaming directory. </p>
+<p><img src="snt.png" alt=""></p>
+<p>7zip can open these files, which shows the contents of the storage object.  </p>
+<p><img src="7zip.png" alt=""></p>
+<p>The folders contain three files. 0 contains the data in RTF format, and 3 contains the raw text. For the remainder of this post, we will use file 3. </p>
+<p><img src="7zipfiles.png" alt=""></p>
+<p>The file is a COM Structured Storage object. OLE uses this structure quite heavily, so tools exist to read the file contents. We can verify the file is indeed this format using the python <a href="https://olefile.readthedocs.io/en/latest/index.html" target="_blank" rel="noopener">olefile tool</a></p>
+<p><img src="oletool.png" alt=""></p>
+<p>As 7-ZIP can open these files, we could try opening it as a zip stream in C#, but unfortunately this won’t work. We will have to implement a reader for the COM Structured Storage format instead. Luckily, this has already been covered in great detail <a href="https://www.developerfusion.com/article/84406/com-structured-storage-from-net/" target="_blank" rel="noopener">here</a> so we don’t need to start from scratch. </p>
+<p>After sorting out the DLLImports and referenced types (using <a href="http://www.pinvoke.net" target="_blank" rel="noopener">PINVOKE.NET</a> and the above article), we can build a method to read the contents of the storage. This code gets the type and the name.</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;<span class="keyword">string</span>&gt; <span class="title">readFile</span>(<span class="params"><span class="keyword">string</span> path</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">var</span> data = <span class="keyword">new</span> List&lt;<span class="keyword">string</span>&gt;();</span><br><span class="line">        <span class="keyword">var</span> isOLE = StructuredStorage.StgIsStorageFile(path);</span><br><span class="line">        <span class="keyword">if</span> (isOLE == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//open the storage </span></span><br><span class="line">            IStorage Is;</span><br><span class="line">            <span class="keyword">int</span> result = StgOpenStorage(path, <span class="literal">null</span>, STGM.READ | STGM.SHARE_EXCLUSIVE, IntPtr.Zero, <span class="number">0</span>, <span class="keyword">out</span> Is);</span><br><span class="line">            <span class="comment">//set up to fetch one item on each call to next</span></span><br><span class="line">            IEnumSTATSTG SSenum;</span><br><span class="line">            Is.EnumElements(<span class="number">0</span>, IntPtr.Zero, <span class="number">0</span>, <span class="keyword">out</span> SSenum);</span><br><span class="line">            <span class="keyword">var</span> SSstruct = <span class="keyword">new</span> System.Runtime.InteropServices.ComTypes.STATSTG[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">            <span class="comment">//do the loop until not more items</span></span><br><span class="line">            <span class="keyword">uint</span> NumReturned;</span><br><span class="line">            <span class="keyword">do</span></span><br><span class="line">            &#123;</span><br><span class="line">                SSenum.Next(<span class="number">1</span>, SSstruct, <span class="keyword">out</span> NumReturned);</span><br><span class="line">                <span class="keyword">if</span> (NumReturned != <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    data.Add(SSstruct[<span class="number">0</span>].pwcsName + <span class="string">" "</span> + SSstruct[<span class="number">0</span>].type.ToString());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">while</span> (NumReturned &gt; <span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> data;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>When executed, we can see see the contents in the Autos pane. If you’re wondering how I tested this, I copied the .snt file from my Win 7 VM to my Win 10 VM, which has my dev environment set up. </p>
+<p><img src="autos1.png" alt=""></p>
+<p>Looking at our data, and the STGTY enum below, we can see that our storage object contains nested storage.</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> STGTY :<span class="keyword">int</span></span><br><span class="line">&#123;</span><br><span class="line">     STGTY_STORAGE = <span class="number">1</span>,</span><br><span class="line">     STGTY_STREAM = <span class="number">2</span>,</span><br><span class="line">     STGTY_LOCKBYTES = <span class="number">3</span>,</span><br><span class="line">     STGTY_PROPERTY = <span class="number">4</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>This fits with what 7zip told us, the nested storage is the folders created for each note. </p>
+<p>We need to modify our code to handle nested storage. This is an ideal candidate for a recursive function.</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;<span class="keyword">string</span>&gt; <span class="title">readFile</span>(<span class="params"><span class="keyword">string</span> path</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> data = <span class="keyword">new</span> List&lt;<span class="keyword">string</span>&gt;();</span><br><span class="line">    <span class="keyword">var</span> isOLE = StructuredStorage.StgIsStorageFile(path);</span><br><span class="line">    <span class="keyword">if</span> (isOLE == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//open the storage </span></span><br><span class="line">        IStorage Is;</span><br><span class="line">        <span class="keyword">int</span> result = StgOpenStorage(path, <span class="literal">null</span>, STGM.READ | STGM.SHARE_EXCLUSIVE, IntPtr.Zero, <span class="number">0</span>, <span class="keyword">out</span> Is);</span><br><span class="line">        <span class="comment">//set up to fetch one item on each call to next</span></span><br><span class="line">        IEnumSTATSTG SSenum;</span><br><span class="line">        Is.EnumElements(<span class="number">0</span>, IntPtr.Zero, <span class="number">0</span>, <span class="keyword">out</span> SSenum);</span><br><span class="line">        <span class="keyword">var</span> SSstruct = <span class="keyword">new</span> System.Runtime.InteropServices.ComTypes.STATSTG[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        <span class="comment">//do the loop until not more items</span></span><br><span class="line">        <span class="keyword">uint</span> NumReturned;</span><br><span class="line">        <span class="keyword">do</span></span><br><span class="line">        &#123;</span><br><span class="line">            SSenum.Next(<span class="number">1</span>, SSstruct, <span class="keyword">out</span> NumReturned);</span><br><span class="line">            <span class="keyword">if</span> (NumReturned != <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(SSstruct[<span class="number">0</span>].type == <span class="number">1</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    OpenSubStorage(Is, SSstruct[<span class="number">0</span>].pwcsName, data);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    data.Add(SSstruct[<span class="number">0</span>].pwcsName + <span class="string">" "</span> + SSstruct[<span class="number">0</span>].type.ToString());</span><br><span class="line">                &#125;</span><br><span class="line">                        </span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">while</span> (NumReturned &gt; <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> data;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//No problem cant be made worse with recursion! </span></span><br><span class="line"><span class="function"><span class="keyword">private</span> List&lt;<span class="keyword">string</span>&gt; <span class="title">OpenSubStorage</span>(<span class="params">IStorage Is, <span class="keyword">string</span> pwcsName, List&lt;<span class="keyword">string</span>&gt; data</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    IStorage ppstg;</span><br><span class="line">    Is.OpenStorage(pwcsName, <span class="literal">null</span>, (<span class="keyword">uint</span>)(STGM.READ | STGM.SHARE_EXCLUSIVE), IntPtr.Zero, <span class="number">0</span>, <span class="keyword">out</span> ppstg);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//set up to fetch one item on each call to next</span></span><br><span class="line">    IEnumSTATSTG SSenum;</span><br><span class="line">    ppstg.EnumElements(<span class="number">0</span>, IntPtr.Zero, <span class="number">0</span>, <span class="keyword">out</span> SSenum);</span><br><span class="line">    <span class="keyword">var</span> SSstruct = <span class="keyword">new</span> System.Runtime.InteropServices.ComTypes.STATSTG[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//do the loop until not more items</span></span><br><span class="line">    <span class="keyword">uint</span> NumReturned;</span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">    &#123;</span><br><span class="line">        SSenum.Next(<span class="number">1</span>, SSstruct, <span class="keyword">out</span> NumReturned);</span><br><span class="line">        <span class="keyword">if</span> (NumReturned != <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(SSstruct[<span class="number">0</span>].type == <span class="number">1</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                OpenSubStorage(ppstg, SSstruct[<span class="number">0</span>].pwcsName, data);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                data.Add(SSstruct[<span class="number">0</span>].pwcsName + <span class="string">" "</span> + SSstruct[<span class="number">0</span>].type.ToString());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">while</span> (NumReturned &gt; <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Now, when we run the project, we can see the contents of the folders</p>
+<p><img src="autos2.png" alt=""></p>
+<p>The next step is to handle the different types properly. For this post, we only need to handle type 2, or Streams</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">string</span> <span class="title">readStream</span>(<span class="params"><span class="keyword">ref</span> IStorage Is, <span class="keyword">string</span> pwcsName</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    IStream stream;</span><br><span class="line">    <span class="keyword">byte</span>[] buf = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1000</span>];</span><br><span class="line">    IntPtr readBuffer = Marshal.AllocCoTaskMem(Marshal.SizeOf(<span class="keyword">typeof</span>(<span class="keyword">int</span>)));</span><br><span class="line">            </span><br><span class="line">    Is.OpenStream(pwcsName, IntPtr.Zero, (<span class="keyword">uint</span>)(STGM.READ | STGM.SHARE_EXCLUSIVE), <span class="number">0</span>, <span class="keyword">out</span> stream);</span><br><span class="line">    stream.Read(buf, <span class="number">1000</span>, readBuffer);</span><br><span class="line">    <span class="keyword">int</span> intValue = Marshal.ReadInt32(readBuffer);</span><br><span class="line">    Marshal.FreeCoTaskMem(readBuffer);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//only print the number of bytes we actually read. Lets just assume we never read more than 1000</span></span><br><span class="line">    <span class="keyword">return</span> System.Text.Encoding.Unicode.GetString(buf.Take(intValue<span class="number">-2</span>).ToArray());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>We use the output number of bytes read to trim the string down and output it. We drop 2 bytes to remove the trailing \0, which gives us the note content. In this example, we are reading up to a maximum of 1000 bytes. That should be sufficient for most cases, but this code will need to be modified to handle longer notes. The note content can be seen in the Autos pane when we run the project.</p>
+<p><img src="autos3.png" alt=""></p>
+<p>The final step is to tidy up our code. We want to be able to handle the two note storage cases, but otherwise the code will be fairly generic. This is a prime candidate for the use of interfaces. I’ve covered interfaces elsewhere in this blog, so I won’t go into any detail here. Essentially, we define an interface which we implement in a class to handle SQLite format notes, and a class to handle the Structure Storage format. We can then grab the Windows release ID and load the correct concrete class as appropriate. </p>
+<p>With our changes made, we can read the SQLite notes on a current Win 10 instance (there was no way I’d pass up a chance to name a tool “SharpStick”).</p>
+<p><img src="sharpstick1.png" alt=""></p>
+<p>We can also read a legacy SNT file (in this case I’m manually fudging the Windows Version ID in my code).</p>
+<p><img src="sharpstick2.png" alt=""></p>
+<p>SQLite introduces a lot of dependencies, we can use Fody to pack everything into one big EXE. Unfortunately, this results in an EXE which is around 1.6Mb. The limit for Cobalt Strikes execute-assembly is 1Mb, so we won’t be able to use this tool via CS in its current form. </p>
+<p>You can find the code for this tool in its current state <a href="https://github.com/two06/SharpStick" target="_blank" rel="noopener">here</a>: </p>
+<p>There’s a lot of room for improvement here. It should be possible to remove the dependency on the SQLite package, which will drop the EXE size and allow us to run it with execute-assembly. I’ve also not tested this on Win 7, so there may be some bugs to iron out there. With minimal changes you can also pass a path to a file in to the program directly, which will allow the code to work against note files downloaded from compromised endpoints for off-line parsing. </p>
+<p>To wrap things up, we now know how to read the two types of storage used by Microsoft Sticky Notes and have a way to extract the note content and tooling which can be futher improved as required. </p>
+
+          
+          <hr>
+          <ul class="pager">
+              
+              
+              <li class="next">
+                  <a href="/two06.github.io/Software-Development-Principals-for-Offensive-Developers-Part-2-Adapters/" data-toggle="tooltip" data-placement="top"
+                     title="Software Development Principals for Offensive Developers - Part 2 (Adapters)">Next Post&rarr;</a>
+              </li>
+              
+          </ul>
+        
+  <br>
+  
+
+  
+  </div>
+
+
+        
+
+      </div>
+  </div>
+</article>
+
+<!-- Footer -->
+<!-- footer.ejs -->
+<footer>
+    <div class="text-center">
+      <ul class="list-inline">
+          
+              <li>
+                  <a href="/two06.github.io/atom.xml" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+          
+              <li>
+                  <a target="_blank" href="https://twitter.com/two06">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+          
+
+          
+
+          
+
+          
+              <li>
+                  <a target="_blank"  href="https://github.com/two06">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+
+      </ul>
+     <div class="text-muted copyright">
+            &copy;
+            
+            2019 - 2020
+            
+            
+              <i class="fa fa-user"></i>
+            
+            two06
+        <br>
+          
+              Powered by <a target="_blank" href="https://hexo.io">Hexo</a>
+          
+          
+          
+          
+      </div>
+    </div>
+</footer>
+
+<!-- Custom Theme JavaScript -->
+
+<script src="/two06.github.io/js/main.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+</body>
+
+</html>
